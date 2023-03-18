@@ -23,8 +23,10 @@
                 <td class="py-4 px-6 border-b border-grey-light">
                   <div class="flex">
 
+
+                    <p class="text-left text-grey-dark">{{$prefecture_select[$tweet->user->prefecture];}}</p>
                     <a href="{{ route('follow.show', $tweet->user->id) }}">
-                      <p class="text-left text-grey-dark">{{$tweet->user->name}}</p>
+                        <p class="text-left text-grey-dark">{{$tweet->user->name}}</p>
                     </a>
 
                     <!-- follow 状態で条件分岐 -->
@@ -54,9 +56,19 @@
                   </div>
                   <!-- 🔼 ここまで編集 -->
 
-                  <a href="{{ route('tweet.show',$tweet->id) }}">
+                  <!-- <a href="{{ route('tweet.show',$tweet->id) }}">
                     <h3 class="text-left font-bold text-lg text-grey-dark">{{$tweet->tweet}}</h3>
-                  </a>
+                  </a> -->
+                <h3 class="text-left font-bold text-lg text-grey-dark">{{$tweet->tweet}}</h3>
+
+                @if( isset($tweet->innerJoinImages[0]) )
+                    <div>
+                    @foreach ($tweet->innerJoinImages as $photo)
+                        <img src="{{ asset('storage/images/' . $photo->hash_name) }}" style="display:inline-block; width:150px; height:auto;">
+                        <!-- <span>{{ asset('storage/images/' . $tweet->innerJoinImages[0]->hash_name) }}</span> -->
+                    @endforeach
+                    </div>
+                @endif
 
                   <div class="flex">
                     <!-- favorite 状態で条件分岐 -->

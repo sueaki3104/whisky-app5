@@ -31,6 +31,11 @@ class Tweet extends Model
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
-
+    public function innerJoinImages()
+    {
+        //return $this->belongsToMany(TweetImage::class, 'tweet_images', 'tweet_id')->using(TweetImage::class);
+        // return $this->hasOne(TweetImage::class, "tweet_id");
+        return $this->hasMany(TweetImage::class, "tweet_id");
+    }
 
 }

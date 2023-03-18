@@ -13,9 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('tweets', function (Blueprint $table) {
-            //
-            $table->foreignId('user_id')->after('id')->nullable()->constrained()->cascadeOnDelete();
+        Schema::create('tweet_images', function (Blueprint $table) {
+            $table->foreignId('tweet_id')->constrained('tweets')->cascadeOnDelete();
+            // $table->foreignId('image_id')->constrained('images')->cascadeOnDelete();
+            // $table->integer('image_id');
+            $table->string('hash_name');
+            $table->timestamps();
         });
     }
 
@@ -26,10 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('tweets', function (Blueprint $table) {
-            //
-            $table->dropForeign(['user_id']);
-            $table->dropColumn(['user_id']);
-        });
+        Schema::dropIfExists('tweet_images');
     }
 };

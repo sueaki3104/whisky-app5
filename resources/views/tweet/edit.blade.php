@@ -19,10 +19,10 @@
               <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="tweet">tweet</label>
               <input class="border py-2 px-3 text-grey-darkest" type="text" name="tweet" id="tweet" value="{{$tweet->tweet}}">
             </div>
-            <div class="flex flex-col mb-4">
+            <!-- <div class="flex flex-col mb-4">
               <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="description">Description</label>
               <input class="border py-2 px-3 text-grey-darkest" type="text" name="description" id="description" value="{{$tweet->description}}">
-            </div>
+            </div> -->
             <div class="flex justify-evenly">
               <a href="{{ url()->previous() }}" class="block text-center w-5/12 py-3 mt-6 font-medium tracking-widest text-black uppercase bg-gray-100 shadow-sm focus:outline-none hover:bg-gray-200 hover:shadow-none">
                 Back
