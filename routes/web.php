@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/tweet', [TweetController::class, 'index'])->name('tweet.index');
     Route::get('/tweet/search/input', [SearchController::class, 'create'])->name('search.input');
     Route::get('/tweet/search/result', [SearchController::class, 'index'])->name('search.result');
+    Route::get('/tweet/search/result2', [SearchController::class, 'searchPrefecture'])->name('search.prefecture');
     Route::get('/tweet/timeline', [TweetController::class, 'timeline'])->name('tweet.timeline');
     Route::get('user/{user}', [FollowController::class, 'show'])->name('follow.show');
     Route::post('user/{user}/follow', [FollowController::class, 'store'])->name('follow');

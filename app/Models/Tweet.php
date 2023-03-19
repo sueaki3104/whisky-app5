@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\Comments;
 class Tweet extends Model
 {
     use HasFactory;
@@ -30,6 +30,18 @@ class Tweet extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+
+    public function commentUsers()
+    {
+        // return $this->belongsToMany(Comments::class)->withTimestamps();
+
+        return $this->hasMany(Comments::class, "tweet_id");
+
+    }
+
+
+
+
 
     public function innerJoinImages()
     {

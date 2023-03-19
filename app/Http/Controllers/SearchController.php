@@ -27,7 +27,21 @@ class SearchController extends Controller
         $prefecture_select = User::getPrefecture();
 
 
-        return view('tweet.index', compact('tweets','prefecture_select'));    }
+        return view('tweet.index', compact('tweets','prefecture_select'));
+    }
+
+    public function searchPrefecture(Request $request)
+    {
+        $tweets = Tweet::query()
+            ->where('prefecture', $request->prefecture)
+            ->get();
+
+        $prefecture_select = User::getPrefecture();
+
+        return view('tweet.index', compact('tweets','prefecture_select'));
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
