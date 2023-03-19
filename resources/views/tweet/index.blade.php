@@ -24,10 +24,11 @@
                   <div class="flex">
 
 
-                    <p class="text-left text-grey-dark">{{$prefecture_select[$tweet->user->prefecture];}}</p>
+                    <p class="text-left text-grey-dark">所属：{{$prefecture_select[$tweet->user->prefecture];}}</p>
                     <a href="{{ route('follow.show', $tweet->user->id) }}">
-                        <p class="text-left text-grey-dark">{{$tweet->user->name}}</p>
+                        <p class="text-left text-grey-dark" style="padding-left: 20px;">投稿者：{{$tweet->user->name}}</p>
                     </a>
+
 
                     <!-- follow 状態で条件分岐 -->
                     @if(Auth::user()->followings()->where('users.id', $tweet->user->id)->exists())
@@ -56,10 +57,13 @@
                   </div>
                   <!-- 🔼 ここまで編集 -->
 
-                  <!-- <a href="{{ route('tweet.show',$tweet->id) }}">
+                  <!-- 本文から投稿詳細に飛ばす -->
+
+                  <a href="{{ route('tweet.show',$tweet->id) }}">
                     <h3 class="text-left font-bold text-lg text-grey-dark">{{$tweet->tweet}}</h3>
-                  </a> -->
-                <h3 class="text-left font-bold text-lg text-grey-dark">{{$tweet->tweet}}</h3>
+                  </a>
+
+                <!-- <h3 class="text-left font-bold text-lg text-grey-dark">{{$tweet->tweet}}</h3> -->
 
                 @if( isset($tweet->innerJoinImages[0]) )
                     <div>
@@ -71,7 +75,20 @@
                 @endif
 
                   <div class="flex">
-                    <!-- favorite 状態で条件分岐 -->
+
+                    <!-- comment ボタン -->
+                    <form action="{{ route('tweet.show',$tweet->id) }}" method="GET" class="text-left">
+                      @csrf
+                      <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-black py-1 px-2 focus:outline-none focus:shadow-outline">
+                        <svg class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="black">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                        <!-- {{ $tweet->users()->count() }} -->
+                        99
+                      </button>
+                    </form>
+
+                  <!-- favorite 状態で条件分岐 -->
                     @if($tweet->users()->where('user_id', Auth::id())->exists())
                     <!-- unfavorite ボタン -->
                     <form action="{{ route('unfavorites',$tweet) }}" method="POST" class="text-left">

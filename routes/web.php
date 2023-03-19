@@ -6,6 +6,7 @@ use App\Http\Controllers\TweetController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\CommentController;
 
 
 /*
@@ -31,6 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('tweet/{tweet}/unfavorites', [FavoriteController::class, 'destroy'])->name('unfavorites');
     Route::get('/tweet/mypage', [TweetController::class, 'mydata'])->name('tweet.mypage');
     Route::resource('tweet', TweetController::class);
+    Route::resource('comment', CommentController::class);
 });
 
 Route::get('/', function () {
