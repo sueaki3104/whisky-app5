@@ -351,11 +351,6 @@ class TweetController extends Controller
             48 => "内緒",
         );
 
-
-
-
-
-
         return view('tweet.index', compact('tweets','prefecture_select'));
     }
 
