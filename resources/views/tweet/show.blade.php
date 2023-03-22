@@ -70,14 +70,14 @@
                                     <p>{{  $commentData->comment  }}</p>
                                     <p>{{  $commentData->created_at  }}</p>
 
-                                    @if( isset($commentData->innerJoinImages[0]) )
-                                        <div>
-                                            @foreach ($commentData->innerJoinImages as $photo)
-                                                <img src="{{ asset('storage/images/' . $photo->hash_name) }}" style="display:inline-block; width:150px; height:auto;">
-                                                <!-- <span>{{ asset('storage/images/' . $tweet->innerJoinImages[0]->hash_name) }}</span> -->
-                                            @endforeach
-                                        </div>
-                                    @endif
+                                @if( isset($tweet->innerJoinImages[0]) )
+                                    <div>
+                                        @foreach ($tweet->innerJoinImages as $photo)
+                                            <img src="{{ asset('storage/images/' . $photo->hash_name) }}" style="display:inline-block; width:150px; height:auto;">
+                                            <!-- <span>{{ asset('storage/images/' . $tweet->innerJoinImages[0]->hash_name) }}</span> -->
+                                        @endforeach
+                                    </div>
+                                @endif
 
 
                                     <p>写真を掲載</p>
@@ -91,4 +91,5 @@
             </div>
         </div>
     </div>
+
 </x-app-layout>
