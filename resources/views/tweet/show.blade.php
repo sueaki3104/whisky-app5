@@ -3,6 +3,8 @@
         border: 1px solid #ccc;
         padding: 10px;
         margin-bottom: 10px;
+        background-color: #000000;
+        color: #ffffff;
     }
 </style>
 
@@ -21,9 +23,10 @@
                     <div class="mb-6">
                         <div class="flex flex-col mb-4">
                             <p class="mb-2 uppercase font-bold text-lg text-grey-darkest">投稿された内容</p>
-                        <p class="text-left text-grey-dark">所属：{{  $prefecture_select[$tweet->user->prefecture];  }}</p>
+                        <p class="text-left text-grey-dark">所　属：{{  $prefecture_select[$tweet->user->prefecture];  }}</p>
 
                         <p class="text-left text-grey-dark">投稿者：{{  $tweet->user->name  }}</p>
+                        <span class="text-muted">投稿は：{{ $tweet->created_at->locale('ja')->diffForHumans() }}</span>
 
                             <p class="py-2 px-3 text-grey-darkest" id="tweet">{{  $tweet->tweet  }}</p>
                         </div>
@@ -34,14 +37,28 @@
                             </p>
                         </div> -->
 
+                        <!-- 画像が1つの場合 -->
                         @if( isset($tweet->innerJoinImages[0]) )
-                            <div>
+                            <div class="text-center">
                                 @foreach ($tweet->innerJoinImages as $photo)
                                     <img src="{{ asset('storage/images/' . $photo->hash_name) }}" style="display:inline-block; width:150px; height:auto;">
                                     <!-- <span>{{ asset('storage/images/' . $tweet->innerJoinImages[0]->hash_name) }}</span> -->
                                 @endforeach
                             </div>
                         @endif
+
+                        <!-- 画像が複数の場合 -->
+                        <!-- @if(isset($tweet->innerJoinImages[0]))
+                            <div class="row">
+                                @foreach ($tweet->innerJoinImages as $photo)
+                                    <div class="col-6">
+                                        <img src="{{ asset('storage/images/' . $photo->hash_name) }}" style="max-width: 100%;">
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif -->
+
+
 
                         <a href="{{ url()->previous() }}" class="block text-center w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
                             Back
@@ -60,10 +77,6 @@
 
                                 <x-tweet.form.images></x-tweet.form.images>
 
-                                <!-- <div class="flex flex-col mb-4">
-                                <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="description">Description</label>
-                                <input class="border py-2 px-3 text-grey-darkest" type="text" name="description" id="description">
-                                </div> -->
                                 <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
                                     コメントをする
                                 </button>
@@ -73,23 +86,24 @@
                         <!-- 返信の表示領域 -->
                         <div class="test">
                             @foreach ($commentsList as $commentData)
-
                                 <div class="comment-box">
-                                    <p>{{  $commentData->user->name  }}</p>
-                                    <p>{{  $commentData->comment  }}</p>
-                                    <p>{{  $commentData->created_at  }}</p>
+                                     <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <p class="text-left text-grey-dark mb-1">所　属：{{  $prefecture_select[$commentData->user->prefecture];  }}</p>
+                                            <p class="text-left text-grey-dark mb-0">投稿者：{{  $commentData->user->name  }}</p>
+                                        </div>
+                                        <span class="text-muted">投稿は：{{ $commentData->created_at->locale('ja')->diffForHumans() }}</span>
+                                    </div>
+
+                                    <p class="text-left text-grey-dark mb-0">コメント：{{  $commentData->comment  }}</p>
 
                                 @if( isset($tweet->innerJoinImages[0]) )
-                                    <div>
+                                    <div class="text-center">
                                         @foreach ($commentData->innerJoinImages as $photo)
                                             <img src="{{ asset('storage/images/' . $photo->hash_name) }}" style="display:inline-block; width:150px; height:auto;">
-                                            <!-- <span>{{ asset('storage/images/' . $tweet->innerJoinImages[0]->hash_name) }}</span> -->
                                         @endforeach
                                     </div>
                                 @endif
-
-
-                                    <!-- <p>写真を掲載</p> -->
                                 </div>
                             @endforeach
                         </div>
