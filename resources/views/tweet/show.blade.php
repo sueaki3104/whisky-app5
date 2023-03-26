@@ -1,12 +1,3 @@
-<style>
-    .comment-box {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
-</style>
-
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -74,14 +65,14 @@
                         <div class="test">
                             @foreach ($commentsList as $commentData)
 
-                                <div class="comment-box">
+                                <div>
                                     <p>{{  $commentData->user->name  }}</p>
                                     <p>{{  $commentData->comment  }}</p>
                                     <p>{{  $commentData->created_at  }}</p>
 
                                 @if( isset($tweet->innerJoinImages[0]) )
                                     <div>
-                                        @foreach ($commentData->innerJoinImages as $photo)
+                                        @foreach ($tweet->innerJoinImages as $photo)
                                             <img src="{{ asset('storage/images/' . $photo->hash_name) }}" style="display:inline-block; width:150px; height:auto;">
                                             <!-- <span>{{ asset('storage/images/' . $tweet->innerJoinImages[0]->hash_name) }}</span> -->
                                         @endforeach
@@ -89,8 +80,9 @@
                                 @endif
 
 
-                                    <!-- <p>写真を掲載</p> -->
+                                    <p>写真を掲載</p>
                                 </div>
+
                             @endforeach
                         </div>
 
