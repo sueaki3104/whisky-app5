@@ -9,6 +9,10 @@ use App\Models\User;
 
 class SearchController extends Controller
 {
+
+    public const TAKE_NUMBER = 500;
+
+
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +30,7 @@ class SearchController extends Controller
             })
             ->orWhereIn('user_id', $users)
             ->orderBy('created_at','desc')
+            ->take(self::TAKE_NUMBER)
             ->get();
 
         $prefecture_select = User::getPrefecture();
@@ -39,6 +44,7 @@ class SearchController extends Controller
         $tweets = Tweet::query()
             ->where('prefecture', $request->prefecture)
             ->orderBy('created_at','desc')
+            ->take(self::TAKE_NUMBER)
             ->get();
 
         $prefecture_select = User::getPrefecture();

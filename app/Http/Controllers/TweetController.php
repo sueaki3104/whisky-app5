@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Storage;
 
 class TweetController extends Controller
 {
+
+    public const TAKE_NUMBER = 100;
+
+
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +28,7 @@ class TweetController extends Controller
     {
         //$tweets = Tweet::getAllOrderByUpdated_at();
 
-        $tweets = Tweet::with('innerJoinImages')->orderBy('updated_at', 'desc')->get();
+        $tweets = Tweet::with('innerJoinImages')->orderBy('updated_at', 'desc')->take(self::TAKE_NUMBER)->get();
         // echo("<pre>");
         // // var_dump($tweets);
 
@@ -190,6 +194,7 @@ class TweetController extends Controller
           ->find(Auth::user()->id)
           ->userTweets()
           ->orderBy('created_at','desc')
+          ->take(self::TAKE_NUMBER)
           ->get();
 
         $prefecture_select = User::getPrefecture();
@@ -206,6 +211,7 @@ class TweetController extends Controller
                 ->whereIn('user_id', $followings)
                 ->orderBy('updated_at', 'desc')
                 ->with('user')
+                ->take(self::TAKE_NUMBER)
                 ->get();
 
             $prefecture_select = User::getPrefecture();

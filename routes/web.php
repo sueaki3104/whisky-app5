@@ -37,8 +37,9 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('toppage');
 });
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -47,6 +48,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile2', [ProfileController::class, 'update_prefecture'])->name('profile.update_prefecture');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 

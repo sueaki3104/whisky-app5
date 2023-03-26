@@ -66,6 +66,7 @@ class User extends Authenticatable
     public static function getPrefecture()
     {
         $prefecture_select = array(
+            0 => "",
             1 => "北海道",
             2 => "青森",
             3 => "岩手",

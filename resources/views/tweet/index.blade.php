@@ -23,7 +23,7 @@
         <div class="max-w-7xl mx-auto sm:w-8/12 md:w-1/2 lg:w-5/12">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <table class="text-center w-full border-collapse sm:table-auto" border="1">
+                    <table class="text-center w-full border-collapse sm:table-auto" border="1" style="table-layout: fixed; width:100%;" \>
                         <thead>
                             <tr>
                                 <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light sm:w-1/2 md:w-1/3 lg:w-1/4">新しい投稿を確認</th>
@@ -31,12 +31,12 @@
                         </thead>
                     <tbody>
                     @foreach ($tweets as $tweet)
-                        <tr id="tweet{{$tweet->id}}" class="hover:bg-grey-lighter sm:table-row">
+                        <tr id="tweet{{$tweet->id}}" class="hover:bg-grey-lighter sm:table-row" \>
                             <td class="py-4 px-6 border-b border-grey-light sm:text-sm md:text-base lg:text-lg">
                                 <div class="flex flex-col mb-4">
                                     <div class="flex justify-between items-start mb-2">
                                         <div>
-                                            <p class="text-gray-700 font-medium">{{ $prefecture_select[$tweet->user->prefecture] }}</p>
+                                            <p class="text-gray-700 font-medium">{{ $prefecture_select[$tweet->prefecture] }}</p>
                                             <a href="{{ route('follow.show', $tweet->user->id) }}">
                                             <p class="text-gray-700 font-medium">{{ $tweet->user->name }}</p>
                                         </div>
@@ -79,7 +79,7 @@
                   <!-- 本文から投稿詳細に飛ばす -->
 
                   <a href="{{ route('tweet.show',$tweet->id) }}">
-                    <h3 class="text-left font-bold text-lg text-grey-dark">{{$tweet->tweet}}</h3>
+                    <h3 class="text-left font-bold text-lg text-grey-dark" style="overflow-wrap: break-word;">{{$tweet->tweet}}</h3>
                   </a>
 
                 <!-- <h3 class="text-left font-bold text-lg text-grey-dark">{{$tweet->tweet}}</h3> -->

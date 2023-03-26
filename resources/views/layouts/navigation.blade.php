@@ -7,7 +7,7 @@
       <div class="flex">
         <!-- Logo -->
         <div class="shrink-0 flex items-center">
-          <a href="{{ route('dashboard') }}">
+          <a href="{{ route('tweet.index') }}">
             <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
           </a>
         </div>
@@ -67,14 +67,27 @@
             </button>
           </x-slot>
 
+
+
+
+
           <x-slot name="content">
+            <form method="GET" action="{{ route('profile.edit') }}">
+              @csrf
+
+              <x-dropdown-link :href="route('profile.edit')" onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                {{ __('プロフィール') }}
+              </x-dropdown-link>
+            </form>
+
             <!-- Authentication -->
             <form method="POST" action="{{ route('logout') }}">
               @csrf
 
               <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                {{ __('Log Out') }}
+                {{ __('ログアウト') }}
               </x-dropdown-link>
             </form>
           </x-slot>
@@ -93,6 +106,13 @@
     </div>
   </div>
 
+
+
+
+
+<!-- ==================================================================================== -->
+<!-- ▼スマホ表示 専用ハンバーガーメニュー内の項目リスト ▼ -->
+<!-- ==================================================================================== -->
   <!-- Responsive Navigation Menu -->
   <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
     <!-- <div class="pt-2 pb-3 space-y-1">
@@ -101,42 +121,44 @@
       </x-responsive-nav-link>
     </div> -->
     <!-- 🔽 一覧ページへのリンクを追加 -->
-    <div class="pt-2 pb-3 space-y-1">
+    <!-- <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('tweet.index')" :active="request()->routeIs('tweet.index')">
         {{ __('投稿一覧') }}
       </x-responsive-nav-link>
-    </div>
+    </div> -->
     <!-- 🔽 作成ページへのリンクを追加 -->
-    <div class="pt-2 pb-3 space-y-1">
+    <!-- <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('tweet.create')" :active="request()->routeIs('tweet.create')">
         {{ __('新規投稿') }}
       </x-responsive-nav-link>
-    </div>
+    </div> -->
     <!-- 🔽 マイページへのリンクを追加 -->
-    <div class="pt-2 pb-3 space-y-1">
+    <!-- <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('tweet.mypage')" :active="request()->routeIs('tweet.mypage')">
         {{ __('自分の投稿') }}
       </x-responsive-nav-link>
-    </div>
+    </div> -->
     <!-- 🔽 タイムラインへのリンクを追加 -->
-    <div class="pt-2 pb-3 space-y-1">
+    <!-- <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('tweet.timeline')" :active="request()->routeIs('tweet.timeline')">
         {{ __('フォロワー') }}
       </x-responsive-nav-link>
-    </div>
+    </div> -->
 
     <!-- 🔽 検索画面へのリンクを追加 -->
-    <div class="pt-2 pb-3 space-y-1">
+    <!-- <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('search.input')" :active="request()->routeIs('search.input')">
         {{ __('検索') }}
       </x-responsive-nav-link>
-    </div>
+    </div> -->
 
     <!-- Responsive Settings Options -->
     <div class="pt-4 pb-1 border-t border-gray-200">
       <div class="px-4">
-        <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+        <a href="{{ route('profile.edit') }}">
+            <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+            <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+        </a>
       </div>
 
       <div class="mt-3 space-y-1">
@@ -151,6 +173,105 @@
         </form>
       </div>
     </div>
+
   </div>
 </nav>
 
+
+<!-- ==================================================================================== -->
+<!-- ▼スマホ表示 ページ下部固定のグローバルメニュー ▼ -->
+<!-- ==================================================================================== -->
+<nav>
+    <style>
+        .sm-globalmenu{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 2px 0;
+            margin: 0;
+            border-top: 1px solid #aaaaaa;
+            background-color: #ffffff;
+        }
+        .sm-globalmenu > ul{
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+        .sm-globalmenu > ul li{
+            text-align: center;
+        }
+        .sm-globalmenu > ul li svg{
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .sm-tweetButton{
+            position: fixed;
+            bottom: 70px;
+            right: 15px;
+        }
+    </style>
+
+    <div class="sm-globalmenu sm:hidden" style="">
+        <ul>
+            <!-- 投稿一覧 -->
+            <li>
+                <a href="{{ route('tweet.index') }}">
+                    <svg class="h-6 w-6 text-red-500" fill="yellow" viewBox="0 0 24 24" stroke="red">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
+                    </svg>
+                    <span>{{ __('Home') }}</span>
+                </a>
+            </li>
+            <!-- 投稿一覧 -->
+            <li>
+                <a href="{{ route('tweet.index') }}">
+                    <svg class="h-6 w-6 text-red-500" fill="yellow" viewBox="0 0 24 24" stroke="red">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
+                    </svg>
+                    <span>{{ __('Home') }}</span>
+                </a>
+            </li>
+            <!-- 投稿一覧 -->
+            <li>
+                <a href="{{ route('tweet.index') }}">
+                    <svg class="h-6 w-6 text-red-500" fill="yellow" viewBox="0 0 24 24" stroke="red">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
+                    </svg>
+                    <span>{{ __('Home') }}</span>
+                </a>
+            </li>
+            <!-- 投稿一覧 -->
+            <li>
+                <a href="{{ route('tweet.index') }}">
+                    <svg class="h-6 w-6 text-red-500" fill="yellow" viewBox="0 0 24 24" stroke="red">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
+                    </svg>
+                    <span>{{ __('Home') }}</span>
+                </a>
+            </li>
+            <!-- 投稿一覧 -->
+            <li>
+                <a href="{{ route('tweet.index') }}">
+                    <svg class="h-6 w-6 text-red-500" fill="yellow" viewBox="0 0 24 24" stroke="red">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
+                    </svg>
+                    <span>{{ __('Home') }}</span>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+    <!-- ツイートするボタン -->
+    <div class="sm-tweetButton sm:hidden">
+        <a href="{{ route('tweet.create') }}">
+            <svg class="h-6 w-6 text-red-500" fill="yellow" viewBox="0 0 24 24" stroke="red">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
+            </svg>
+        </a>
+    </div>
+
+<nav>

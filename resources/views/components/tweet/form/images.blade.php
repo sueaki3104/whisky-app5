@@ -26,7 +26,13 @@
 <script>
 function inputFormHandler() {
   return {
-    fields: [],
+    // fields: [],
+    fields: [
+        {file:'', id:'input-image-0'},
+        {file:'', id:'input-image-1'},
+        {file:'', id:'input-image-2'},
+        {file:'', id:'input-image-3'}
+    ],
     addField() {
       const i = this.fields.length;
       this.fields.push({
