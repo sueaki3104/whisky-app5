@@ -24,7 +24,7 @@
         <!-- 都道府県 -->
         <div class="mt-4">
             <x-input-label for="prefecture" :value="__('あなたが登録した都道府県は')" />
-            <p class="text-gray-700 font-medium">{{ $prefecture_select[ $user->prefecture ] }}</p>
+            <p class="text-gray-700 font-medium">{{ $prefecture_select[ $user->prefecture ] }}です</p>
 
             <select name="prefecture" id="prefecture" required="required" autofocus="autofocus">
                 <option value="1">北海道</option>
@@ -76,7 +76,6 @@
                 <option value="47">沖縄</option>
                 <option value="48">内緒</option>
             </select>
-            <!-- <x-text-input id="prefecture" class="block mt-1 w-full" type="text" name="prefecture" :value="old('prefecture')" required autofocus autocomplete="prefecture" /> -->
             <x-input-error :messages="$errors->get('prefecture')" class="mt-2" />
         </div>
 

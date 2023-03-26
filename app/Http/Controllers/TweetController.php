@@ -26,35 +26,9 @@ class TweetController extends Controller
     // ここのindexは一覧表示のことです
      public function index()
     {
-        //$tweets = Tweet::getAllOrderByUpdated_at();
-
         $tweets = Tweet::with('innerJoinImages')->orderBy('updated_at', 'desc')->take(self::TAKE_NUMBER)->get();
-        // echo("<pre>");
-        // // var_dump($tweets);
-
-        // var_dump($tweets[0]->tweet);
-
-        // var_dump($tweets[0]->innerJoinImages[0]->hash_name);
-        // var_dump($tweets[0]->innerJoinImages[1]->hash_name);
-        // var_dump($tweets[0]->innerJoinImages[2]->hash_name);
-        // var_dump($tweets[0]->innerJoinImages[3]->hash_name);
-
-        // var_dump($tweets[1]->innerJoinImages[0]->hash_name);
-        // var_dump($tweets[1]->innerJoinImages[1]->hash_name);
-
-        // echo("<hr>");
-        // var_dump($tweets[0]);
-        // echo("</pre>");
-        // exit();
-
         $prefecture_select = User::getPrefecture();
         return view('tweet.index', compact('tweets','prefecture_select'));
-
-
-
-
-
-
     }
 
     /**
