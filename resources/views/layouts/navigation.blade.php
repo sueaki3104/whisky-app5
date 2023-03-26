@@ -15,38 +15,38 @@
         <!-- Navigation Links -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-            {{ __('Dashboard') }}
+            {{ __('ホーム') }}
           </x-nav-link>
         </div>
         <!-- 🔽 一覧ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('tweet.index')" :active="request()->routeIs('tweet.index')">
-            {{ __('Index') }}
+            {{ __('投稿一覧') }}
           </x-nav-link>
         </div>
         <!-- 🔽 作成ページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('tweet.create')" :active="request()->routeIs('tweet.create')">
-            {{ __('Create') }}
+            {{ __('新規投稿') }}
           </x-nav-link>
         </div>
         <!-- 🔽 マイページへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('tweet.mypage')" :active="request()->routeIs('tweet.mypage')">
-            {{ __('Mypage') }}
+            {{ __('自分の投稿') }}
           </x-nav-link>
         </div>
         <!-- 🔽 タイムラインへのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('tweet.timeline')" :active="request()->routeIs('tweet.timeline')">
-            {{ __('Timeline') }}
+            {{ __('フォロワー') }}
           </x-nav-link>
         </div>
 
         <!-- 🔽 検索画面へのリンクを追加 -->
         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
           <x-nav-link :href="route('search.input')" :active="request()->routeIs('search.input')">
-            {{ __('Search') }}
+            {{ __('検索') }}
           </x-nav-link>
         </div>
 
@@ -97,38 +97,38 @@
   <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
     <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-        {{ __('Dashboard') }}
+        {{ __('ホーム') }}
       </x-responsive-nav-link>
     </div>
     <!-- 🔽 一覧ページへのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('tweet.index')" :active="request()->routeIs('tweet.index')">
-        {{ __('Index') }}
+        {{ __('投稿一覧') }}
       </x-responsive-nav-link>
     </div>
     <!-- 🔽 作成ページへのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('tweet.create')" :active="request()->routeIs('tweet.create')">
-        {{ __('Create') }}
+        {{ __('新規投稿') }}
       </x-responsive-nav-link>
     </div>
     <!-- 🔽 マイページへのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('tweet.mypage')" :active="request()->routeIs('tweet.mypage')">
-        {{ __('Mypage') }}
+        {{ __('自分の投稿') }}
       </x-responsive-nav-link>
     </div>
     <!-- 🔽 タイムラインへのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('tweet.timeline')" :active="request()->routeIs('tweet.timeline')">
-        {{ __('Timeline') }}
+        {{ __('フォロワー') }}
       </x-responsive-nav-link>
     </div>
 
     <!-- 🔽 検索画面へのリンクを追加 -->
     <div class="pt-2 pb-3 space-y-1">
       <x-responsive-nav-link :href="route('search.input')" :active="request()->routeIs('search.input')">
-        {{ __('Search') }}
+        {{ __('検索') }}
       </x-responsive-nav-link>
     </div>
 

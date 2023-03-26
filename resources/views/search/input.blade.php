@@ -15,11 +15,11 @@
           <form class="mb-6" action="{{ route('search.result') }}" method="GET">
             @csrf
             <div class="flex flex-col mb-4">
-              <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="keyword">Keyword</label>
+              <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="keyword">文字検索します</label>
               <input class="border py-2 px-3 text-grey-darkest" type="text" name="keyword" id="keyword">
             </div>
             <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
-              Search
+              検索開始
             </button>
           </form>
         </div>
@@ -90,7 +90,7 @@
 
             </div>
             <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
-              サーチする
+              サーチ開始
             </button>
           </form>
         </div>

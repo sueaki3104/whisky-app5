@@ -19,7 +19,8 @@ class TweetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // ここのindexは一覧表示のことです
+     public function index()
     {
         //$tweets = Tweet::getAllOrderByUpdated_at();
 
@@ -200,16 +201,15 @@ class TweetController extends Controller
     {
         // フォローしているユーザを取得する
         $followings = User::find(Auth::id())->followings->pluck('id')->all();
-        // 自分とフォローしている人が投稿したツイートを取得する
-        $tweets = Tweet::query()
-            ->where('user_id', Auth::id())
-            ->orWhereIn('user_id', $followings)
-            ->orderBy('updated_at', 'desc')
-            ->with('user')
-            ->get();
+        // フォローしている人が投稿したツイートを取得する
+            $tweets = Tweet::query()
+                ->whereIn('user_id', $followings)
+                ->orderBy('updated_at', 'desc')
+                ->with('user')
+                ->get();
 
-        $prefecture_select = User::getPrefecture();
-        return view('tweet.index', compact('tweets','prefecture_select'));
+            $prefecture_select = User::getPrefecture();
+            return view('tweet.index', compact('tweets','prefecture_select'));
     }
 
 
