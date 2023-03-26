@@ -38,7 +38,18 @@ class FavoriteController extends Controller
     public function store(Tweet $tweet)
     {
         $tweet->users()->attach(Auth::id());
-        return redirect()->route('tweet.index');
+
+        $previousUrl=url()->previous();
+        return redirect()->to($previousUrl."#tweet".$tweet->id);
+
+
+
+        // $test=app('router')->getRoutes()->match(app('request')->create(url()->previous()))->getName();
+        // dd($test);
+
+        // return back();
+        // return redirect()->route('tweet.index', ["#".$tweet->id]);
+        // return redirect()->route('tweet.index');
     }
 
     /**
@@ -82,8 +93,16 @@ class FavoriteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Tweet $tweet)
-  {
-    $tweet->users()->detach(Auth::id());
-    return redirect()->route('tweet.index');
-  }
+    {
+        $tweet->users()->detach(Auth::id());
+
+        $previousUrl=url()->previous();
+        return redirect()->to($previousUrl."#tweet".$tweet->id);
+
+
+
+        // return redirect('tweet');
+        // return redirect()->route('tweet.index');
+        // return redirect()->route('tweet.index', ["#".$tweet->id]);
+    }
 }

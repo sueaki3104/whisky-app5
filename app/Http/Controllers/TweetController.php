@@ -152,24 +152,24 @@ class TweetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //バリデーション
-        $validator = Validator::make($request->all(), [
-            'tweet' => 'required | max:191',
-            'description' => 'required',
-        ]);
-        //バリデーション:エラー
-        if ($validator->fails()) {
-            return redirect()
-                ->route('tweet.edit', $id)
-                ->withInput()
-                ->withErrors($validator);
-        }
-        //データ更新処理
-        $result = Tweet::find($id)->update($request->all());
-            return redirect()->route('tweet.index');
-    }
+    // public function update(Request $request, $id)
+    // {
+    //     //バリデーション
+    //     $validator = Validator::make($request->all(), [
+    //         'tweet' => 'required | max:191',
+    //         // 'description' => 'required',
+    //     ]);
+    //     //バリデーション:エラー
+    //     if ($validator->fails()) {
+    //         return redirect()
+    //             ->route('tweet.edit', $id)
+    //             ->withInput()
+    //             ->withErrors($validator);
+    //     }
+    //     //データ更新処理
+    //     $result = Tweet::find($id)->update($request->all());
+    //         return redirect()->route('tweet.index');
+    // }
 
     /**
      * Remove the specified resource from storage.

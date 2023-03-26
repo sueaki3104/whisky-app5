@@ -31,7 +31,7 @@
                         </thead>
                     <tbody>
                     @foreach ($tweets as $tweet)
-                        <tr class="hover:bg-grey-lighter sm:table-row">
+                        <tr id="tweet{{$tweet->id}}" class="hover:bg-grey-lighter sm:table-row">
                             <td class="py-4 px-6 border-b border-grey-light sm:text-sm md:text-base lg:text-lg">
                                 <div class="flex flex-col mb-4">
                                     <div class="flex justify-between items-start mb-2">
@@ -44,29 +44,34 @@
                                     </div>
                                 </div>
 
-                    <!-- フォロー 状態で条件分岐 -->
-                    @if(Auth::user()->followings()->where('users.id', $tweet->user->id)->exists())
-                    <!-- フォローしていない ボタン -->
-                    <form action="{{ route('unfollow', $tweet->user) }}" method="POST" class="text-left">
-                      @csrf
-                        <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-black py-1 px-2 focus:outline-none focus:shadow-outline;">
-                            <svg class="h-6 w-6 text-red-500" fill="yellow" viewBox="0 0 24 24" stroke="red">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
-                            </svg>
-                            {{ $tweet->user->followers()->count() }}
-                        </button>
-                    </form>
-                    @else
-                    <!-- フォロー ボタン -->
-                    <form action="{{ route('follow', $tweet->user) }}" method="POST" class="text-left">
-                      @csrf
-                        <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-black py-1 px-2 focus:outline-none focus:shadow-outline;">
-                            <svg class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="black">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
-                            </svg>
-                            {{ $tweet->user->followers()->count() }}
-                        </button>
-                    </form>
+                    @if ($tweet->user_id != Auth::user()->id)
+                        <!-- フォロー 状態で条件分岐 -->
+                        @if(Auth::user()->followings()->where('users.id', $tweet->user->id)->exists())
+                            <!-- フォローしていない ボタン -->
+                            <form action="{{ route('unfollow', $tweet->user) }}" method="POST" class="text-left">
+                            @csrf
+                                <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+
+                                <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-black py-1 px-2 focus:outline-none focus:shadow-outline;">
+                                    <svg class="h-6 w-6 text-red-500" fill="yellow" viewBox="0 0 24 24" stroke="red">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
+                                    </svg>
+                                    {{ $tweet->user->followers()->count() }}
+                                </button>
+                            </form>
+                        @else
+                            <!-- フォロー ボタン -->
+                            <form action="{{ route('follow', $tweet->user) }}" method="POST" class="text-left">
+                            @csrf
+                                <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+                                <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-black py-1 px-2 focus:outline-none focus:shadow-outline;">
+                                    <svg class="h-6 w-6 text-red-500" fill="none" viewBox="0 0 24 24" stroke="black">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 17.75l-6.172 3.245 1.179-6.873-4.993-4.867 6.9-1.002L12 2l3.086 6.253 6.9 1.002-4.993 4.867 1.179 6.873z" />
+                                    </svg>
+                                    {{ $tweet->user->followers()->count() }}
+                                </button>
+                            </form>
+                        @endif
                     @endif
                   </div>
                   <!-- 🔼 ここまで編集 -->
@@ -129,14 +134,14 @@
 
                     @if ($tweet->user_id === Auth::user()->id)
                     <!-- 更新ボタン -->
-                    <form action="{{ route('tweet.edit',$tweet->id) }}" method="GET" class="text-left">
+                    <!-- <form action="{{ route('tweet.edit',$tweet->id) }}" method="GET" class="text-left">
                       @csrf
                         <button type="submit" class="flex mr-2 ml-2 text-sm hover:bg-gray-200 hover:shadow-none text-black py-1 px-2 focus:outline-none focus:shadow-outline;">
                         <svg class="h-6 w-6 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="black">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                         </svg>
                       </button>
-                    </form>
+                    </form> -->
                     <!-- 削除ボタン -->
                     <form action="{{ route('tweet.destroy',$tweet->id) }}" method="POST" class="text-left">
                       @method('delete')
