@@ -1,17 +1,32 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
-        @csrf
+<section>
+    <header>
+        <h2 class="text-lg font-medium text-gray-900">
+            <!-- {{ __('Profile Information') }} -->
+        </h2>
 
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('名前')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+        <p class="mt-1 text-sm text-gray-600">
+            <!-- {{ __("Update your account's profile information and email address.") }} -->
+        </p>
+    </header>
+
+    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
+        @csrf
+    </form>
+
+    <!-- <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6"> -->
+    <form method="post" action="{{ route('profile.update_prefecture') }}" class="mt-6 space-y-6">
+
+        @csrf
+        @method('patch')
+
+
 
         <!-- 都道府県 -->
         <div class="mt-4">
-            <x-input-label for="prefecture" :value="__('都道府県')" />
+            <x-input-label for="prefecture" :value="__('あなたが登録した都道府県は')" style="font-size: 16px;" />
+            <p class="text-gray-700 font-medium">{{ $prefecture_select[ $user->prefecture ] }}です</p>
+            <p class="text-gray-700 font-medium">変更したい場合は下記のプルダウンから選択してください</p>
+
             <select name="prefecture" id="prefecture" required="required" autofocus="autofocus">
                 <option value="1">北海道</option>
                 <option value="2">青森</option>
@@ -62,48 +77,22 @@
                 <option value="47">沖縄</option>
                 <option value="48">内緒</option>
             </select>
-            <!-- <x-text-input id="prefecture" class="block mt-1 w-full" type="text" name="prefecture" :value="old('prefecture')" required autofocus autocomplete="prefecture" /> -->
             <x-input-error :messages="$errors->get('prefecture')" class="mt-2" />
         </div>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('メールアドレス')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="email" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('パスワード')" />
+        <div class="flex items-center gap-4">
+            <x-primary-button>{{ __('変更して保存') }}</x-primary-button>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('パスワード 再入力')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('既にアカウントは作っていましたか？') }}
-            </a>
-
-            <x-primary-button class="ml-4">
-                {{ __('新規作成') }}
-            </x-primary-button>
+            @if (session('status') === 'profile-updated')
+                <p
+                    x-data="{ show: true }"
+                    x-show="show"
+                    x-transition
+                    x-init="setTimeout(() => show = false, 2000)"
+                    class="text-sm text-gray-600"
+                >{{ __('Saved.') }}</p>
+            @endif
         </div>
     </form>
-</x-guest-layout>
+</section>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Tweet;
 use Auth;
 
 
@@ -39,7 +40,10 @@ class FollowController extends Controller
     public function store(User $user)
     {
         Auth::user()->followings()->attach($user->id);
-        return redirect()->back();
+
+        $previousUrl=url()->previous();
+        return redirect()->to( $previousUrl."#tweet".$_POST["tweet_id"] );
+        // return redirect()->back();
     }
 
     /**
@@ -92,7 +96,10 @@ class FollowController extends Controller
     public function destroy(User $user)
     {
         Auth::user()->followings()->detach($user->id);
-        return redirect()->back();
+
+        $previousUrl=url()->previous();
+        return redirect()->to( $previousUrl."#tweet".$_POST["tweet_id"] );
+        // return redirect()->back();
     }
 
 

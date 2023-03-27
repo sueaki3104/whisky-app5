@@ -1,9 +1,11 @@
 <!-- resources/views/tweet/create.blade.php -->
 
+
+
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('Create New Tweet') }}
+      {{ __('新しい投稿を作成する') }}
     </h2>
   </x-slot>
 
@@ -15,18 +17,14 @@
           <form class="mb-6" action="{{ route('tweet.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col mb-4">
-              <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="tweet">Tweet</label>
-              <input class="border py-2 px-3 text-grey-darkest" type="text" name="tweet" id="tweet">
+              <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="tweet">投稿する（画像は４枚までです）</label>
+              <textarea class="border py-2 px-3 text-grey-darkest resize-none" name="tweet" id="tweet" rows="4"></textarea>
             </div>
 
             <x-tweet.form.images></x-tweet.form.images>
 
-            <!-- <div class="flex flex-col mb-4">
-              <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="description">Description</label>
-              <input class="border py-2 px-3 text-grey-darkest" type="text" name="description" id="description">
-            </div> -->
             <button type="submit" class="w-full py-3 mt-6 font-medium tracking-widest text-white uppercase bg-black shadow-lg focus:outline-none hover:bg-gray-900 hover:shadow-none">
-              Create
+              投稿する
             </button>
           </form>
         </div>

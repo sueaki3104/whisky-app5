@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('tweet');
             $table->text('description')->nullable();
             $table->timestamps();
-            $table->tinyInteger('is_delete');
+            $table->tinyInteger('is_delete')->default(0);
         });
     }
 

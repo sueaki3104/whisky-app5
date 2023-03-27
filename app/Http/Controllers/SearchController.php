@@ -9,31 +9,42 @@ use App\Models\User;
 
 class SearchController extends Controller
 {
+
+    public const TAKE_NUMBER = 500;
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
         $keyword = trim($request->keyword);
         $users  = User::where('name', 'like', "%{$keyword}%")->pluck('id')->all();
         $tweets = Tweet::query()
-            ->where('tweet', 'like', "%{$keyword}%")
-            ->orWhere('description', 'like', "%{$keyword}%")
-            ->orwhereIn('user_id', $users)
+            ->where(function ($query) use ($keyword) {
+                $query->where('tweet', 'like', "%{$keyword}%")
+                    ->orWhere('description', 'like', "%{$keyword}%");
+            })
+            ->orWhereIn('user_id', $users)
+            ->orderBy('created_at','desc')
+            ->take(self::TAKE_NUMBER)
             ->get();
 
         $prefecture_select = User::getPrefecture();
 
-
         return view('tweet.index', compact('tweets','prefecture_select'));
+
     }
 
     public function searchPrefecture(Request $request)
     {
         $tweets = Tweet::query()
             ->where('prefecture', $request->prefecture)
+            ->orderBy('created_at','desc')
+            ->take(self::TAKE_NUMBER)
             ->get();
 
         $prefecture_select = User::getPrefecture();

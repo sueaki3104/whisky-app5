@@ -14,42 +14,21 @@ use Illuminate\Support\Facades\Storage;
 
 class TweetController extends Controller
 {
+
+    public const TAKE_NUMBER = 100;
+
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // ここのindexは一覧表示のことです
+     public function index()
     {
-        //$tweets = Tweet::getAllOrderByUpdated_at();
-
-        $tweets = Tweet::with('innerJoinImages')->orderBy('updated_at', 'desc')->get();
-        // echo("<pre>");
-        // // var_dump($tweets);
-
-        // var_dump($tweets[0]->tweet);
-
-        // var_dump($tweets[0]->innerJoinImages[0]->hash_name);
-        // var_dump($tweets[0]->innerJoinImages[1]->hash_name);
-        // var_dump($tweets[0]->innerJoinImages[2]->hash_name);
-        // var_dump($tweets[0]->innerJoinImages[3]->hash_name);
-
-        // var_dump($tweets[1]->innerJoinImages[0]->hash_name);
-        // var_dump($tweets[1]->innerJoinImages[1]->hash_name);
-
-        // echo("<hr>");
-        // var_dump($tweets[0]);
-        // echo("</pre>");
-        // exit();
-
+        $tweets = Tweet::with('innerJoinImages')->orderBy('updated_at', 'desc')->take(self::TAKE_NUMBER)->get();
         $prefecture_select = User::getPrefecture();
         return view('tweet.index', compact('tweets','prefecture_select'));
-
-
-
-
-
-
     }
 
     /**
@@ -151,24 +130,24 @@ class TweetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //バリデーション
-        $validator = Validator::make($request->all(), [
-            'tweet' => 'required | max:191',
-            'description' => 'required',
-        ]);
-        //バリデーション:エラー
-        if ($validator->fails()) {
-            return redirect()
-                ->route('tweet.edit', $id)
-                ->withInput()
-                ->withErrors($validator);
-        }
-        //データ更新処理
-        $result = Tweet::find($id)->update($request->all());
-            return redirect()->route('tweet.index');
-    }
+    // public function update(Request $request, $id)
+    // {
+    //     //バリデーション
+    //     $validator = Validator::make($request->all(), [
+    //         'tweet' => 'required | max:191',
+    //         // 'description' => 'required',
+    //     ]);
+    //     //バリデーション:エラー
+    //     if ($validator->fails()) {
+    //         return redirect()
+    //             ->route('tweet.edit', $id)
+    //             ->withInput()
+    //             ->withErrors($validator);
+    //     }
+    //     //データ更新処理
+    //     $result = Tweet::find($id)->update($request->all());
+    //         return redirect()->route('tweet.index');
+    // }
 
     /**
      * Remove the specified resource from storage.
@@ -189,6 +168,7 @@ class TweetController extends Controller
           ->find(Auth::user()->id)
           ->userTweets()
           ->orderBy('created_at','desc')
+          ->take(self::TAKE_NUMBER)
           ->get();
 
         $prefecture_select = User::getPrefecture();
@@ -200,16 +180,16 @@ class TweetController extends Controller
     {
         // フォローしているユーザを取得する
         $followings = User::find(Auth::id())->followings->pluck('id')->all();
-        // 自分とフォローしている人が投稿したツイートを取得する
-        $tweets = Tweet::query()
-            ->where('user_id', Auth::id())
-            ->orWhereIn('user_id', $followings)
-            ->orderBy('updated_at', 'desc')
-            ->with('user')
-            ->get();
+        // フォローしている人が投稿したツイートを取得する
+            $tweets = Tweet::query()
+                ->whereIn('user_id', $followings)
+                ->orderBy('updated_at', 'desc')
+                ->with('user')
+                ->take(self::TAKE_NUMBER)
+                ->get();
 
-        $prefecture_select = User::getPrefecture();
-        return view('tweet.index', compact('tweets','prefecture_select'));
+            $prefecture_select = User::getPrefecture();
+            return view('tweet.index', compact('tweets','prefecture_select'));
     }
 
 
