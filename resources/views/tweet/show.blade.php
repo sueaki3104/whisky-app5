@@ -1,3 +1,6 @@
+
+
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -15,14 +18,13 @@
 
                                     <div class="flex justify-between items-center mb-2">
                                         <div>
-                                            <p class="text-gray-700 font-medium">{{ $prefecture_select[$tweet->user->prefecture] }}</p>
+                                            <p class="text-gray-700 font-medium" style="font-size: 14px;">{{ $prefecture_select[$tweet->user->prefecture] }}</p>
                                             <a href="{{ route('follow.show', $tweet->user->id) }}">
-                                            <p class="text-gray-700 font-medium">{{ $tweet->user->name }}</p>
+                                            <p class="text-gray-700 font-medium" style="font-size: 14px;">{{ $tweet->user->name }}</p>
                                         </div>
                                         <p class="text-gray-500 text-sm">{{ $tweet->created_at->locale('ja')->diffForHumans(null, true) }}</p>
                                     </div>
-
-                            <p class="py-2 px-3 text-grey-darkest" id="tweet">{{  $tweet->tweet  }}</p>
+                            <p class="py-4 px-6 border-b border-grey-light" style="overflow-wrap: break-word: font-size: 14px;" id="tweet">{{  $tweet->tweet  }}</p>
                         </div>
 
                         @if( isset($tweet->innerJoinImages[0]) )
@@ -44,7 +46,7 @@
                                 @csrf
                                 <div class="flex flex-col mb-4">
                                     <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="tweet">コメントする（画像は最大４枚）</label>
-                                    <input class="border py-2 px-3 text-grey-darkest" type="text" name="comment" id="comment">
+                                    <textarea class="border py-2 px-3 text-grey-darkest resize-none" name="comment" id="comment" rows="4"></textarea>
                                     <input type="hidden" name="tweet_id" id="tweet_id" value="{{$tweet->id}}">
                                 </div>
 

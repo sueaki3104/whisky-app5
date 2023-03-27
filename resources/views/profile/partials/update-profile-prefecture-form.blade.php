@@ -1,11 +1,11 @@
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900">
-            {{ __('Profile Information') }}
+            <!-- {{ __('Profile Information') }} -->
         </h2>
 
         <p class="mt-1 text-sm text-gray-600">
-            {{ __("Update your account's profile information and email address.") }}
+            <!-- {{ __("Update your account's profile information and email address.") }} -->
         </p>
     </header>
 
@@ -23,8 +23,9 @@
 
         <!-- 都道府県 -->
         <div class="mt-4">
-            <x-input-label for="prefecture" :value="__('あなたが登録した都道府県は')" />
+            <x-input-label for="prefecture" :value="__('あなたが登録した都道府県は')" style="font-size: 16px;" />
             <p class="text-gray-700 font-medium">{{ $prefecture_select[ $user->prefecture ] }}です</p>
+            <p class="text-gray-700 font-medium">変更したい場合は下記のプルダウンから選択してください</p>
 
             <select name="prefecture" id="prefecture" required="required" autofocus="autofocus">
                 <option value="1">北海道</option>
@@ -81,7 +82,7 @@
 
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            <x-primary-button>{{ __('変更して保存') }}</x-primary-button>
 
             @if (session('status') === 'profile-updated')
                 <p

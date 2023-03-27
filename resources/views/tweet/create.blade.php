@@ -1,5 +1,7 @@
 <!-- resources/views/tweet/create.blade.php -->
 
+
+
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -15,8 +17,8 @@
           <form class="mb-6" action="{{ route('tweet.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col mb-4">
-              <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="tweet">投稿する　画像は４枚まで</label>
-              <input class="border py-2 px-3 text-grey-darkest" type="text" name="tweet" id="tweet">
+              <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="tweet">投稿する（画像は４枚までです）</label>
+              <textarea class="border py-2 px-3 text-grey-darkest resize-none" name="tweet" id="tweet" rows="4"></textarea>
             </div>
 
             <x-tweet.form.images></x-tweet.form.images>
