@@ -3,7 +3,7 @@
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-      {{ __('ユーザーの情報') }}
+      {{ __('ユーザー情報') }}
     </h2>
   </x-slot>
 
@@ -19,10 +19,17 @@
               </p>
             </div>
 
+<!-- 都道府県の日本語化がまだで現在は数字 -->
+
+
+
             <div class="flex flex-col mb-4">
                 <p class="mb-2 uppercase font-bold text-lg text-grey-darkest">都道府県</p>
                 <p class="py-2 px-3 text-grey-darkest" id="prefecture">
                 {{$user->prefecture}}
+
+
+
                 </p>
             </div>
 
