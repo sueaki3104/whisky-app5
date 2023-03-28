@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('tweet_id');
             $table->string('comment');
             $table->timestamps();
-            $table->tinyInteger('is_delete');
+            $table->tinyInteger('is_delete')->default(0);
         });
     }
 
