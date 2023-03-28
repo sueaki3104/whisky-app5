@@ -36,7 +36,7 @@ class CommentController extends Controller
             'comment' => 'required | max:191',
             // 'description' => 'required',
             'images' => 'array|max:4',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000'
 
         ]);
         // バリデーション:エラー
