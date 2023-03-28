@@ -55,12 +55,18 @@ class User extends Authenticatable
 
     public function followings()
     {
-    return $this->belongsToMany(self::class, "follows", "user_id", "following_id")->withTimestamps();
+        return $this->belongsToMany(self::class, "follows", "user_id", "following_id")->withTimestamps();
     }
 
     public function followers()
     {
-    return $this->belongsToMany(self::class, "follows", "following_id", "user_id")->withTimestamps();
+        return $this->belongsToMany(self::class, "follows", "following_id", "user_id")->withTimestamps();
+    }
+
+    public function prefecture_name()
+    {
+        $prefecture_select = self::getPrefecture();
+        return $prefecture_select[$this->prefecture];
     }
 
     public static function getPrefecture()

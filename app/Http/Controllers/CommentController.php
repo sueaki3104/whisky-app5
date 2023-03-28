@@ -50,11 +50,9 @@ class CommentController extends Controller
         // 🔽 編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
         $data = $request->merge([
             'user_id' => Auth::user()->id,
-            'tweet_id' => $request->tweet_id
-        ])->all();
+            'tweet_id' => $request->tweet_id,
+            ])->all();
         $result = Comments::create($data);
-
-
 
         $imageList = $this->images($request);
         foreach($imageList as $image){
