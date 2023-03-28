@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            // $table->foreignId('user_id')->after('id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('user_id');
             $table->foreignId('tweet_id');
             $table->string('comment');
             $table->timestamps();
             $table->tinyInteger('is_delete')->default(0);
-
         });
     }
 

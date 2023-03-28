@@ -47,9 +47,7 @@ class SearchController extends Controller
             ->take(self::TAKE_NUMBER)
             ->get();
 
-        $prefecture_select = User::getPrefecture();
-
-        return view('tweet.index', compact('tweets','prefecture_select'));
+        return view('tweet.index', compact('tweets'));
     }
 
 

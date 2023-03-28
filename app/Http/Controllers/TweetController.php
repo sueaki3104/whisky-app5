@@ -27,8 +27,8 @@ class TweetController extends Controller
      public function index()
     {
         $tweets = Tweet::with('innerJoinImages')->orderBy('updated_at', 'desc')->take(self::TAKE_NUMBER)->get();
-        $prefecture_select = User::getPrefecture();
-        return view('tweet.index', compact('tweets','prefecture_select'));
+
+        return view('tweet.index', compact('tweets'));
     }
 
     /**
@@ -75,7 +75,10 @@ class TweetController extends Controller
         }
 
         // 🔽 編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
-        $data = $request->merge(['user_id' => Auth::user()->id, 'prefecture' => Auth::user()->prefecture,])->all();
+        $data = $request->merge([
+            'user_id' => Auth::user()->id,
+            'prefecture' => Auth::user()->prefecture,
+            ])->all();
         $result = Tweet::create($data);
 
         $imageList = $this->images($request);
@@ -105,10 +108,7 @@ class TweetController extends Controller
 
         // dd($commentsList[0]->id);
 
-        $prefecture_select = User::getPrefecture();
-
-
-        return view('tweet.show', compact('tweet','commentsList','prefecture_select'));
+        return view('tweet.show', compact('tweet','commentsList'));
     }
 
     /**
@@ -171,8 +171,7 @@ class TweetController extends Controller
           ->take(self::TAKE_NUMBER)
           ->get();
 
-        $prefecture_select = User::getPrefecture();
-        return view('tweet.index', compact('tweets','prefecture_select'));
+        return view('tweet.index', compact('tweets'));
     }
 
 
@@ -188,8 +187,7 @@ class TweetController extends Controller
                 ->take(self::TAKE_NUMBER)
                 ->get();
 
-            $prefecture_select = User::getPrefecture();
-            return view('tweet.index', compact('tweets','prefecture_select'));
+            return view('tweet.index', compact('tweets'));
     }
 
 

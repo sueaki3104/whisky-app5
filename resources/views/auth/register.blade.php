@@ -4,7 +4,7 @@
 
         <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('名前')" />
+            <x-input-label for="name" :value="__('名前（ニックネームがいいと思います）')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
@@ -75,7 +75,7 @@
 
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label for="password" :value="__('パスワード')" />
+            <x-input-label for="password" :value="__('パスワード（英数小文字で８文字上です）')" />
 
             <x-text-input id="password" class="block mt-1 w-full"
                             type="password"
@@ -87,7 +87,7 @@
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('パスワード 再入力')" />
+            <x-input-label for="password_confirmation" :value="__('パスワード 再入力（英数小文字で８文字上です）')" />
 
             <x-text-input id="password_confirmation" class="block mt-1 w-full"
                             type="password"
@@ -98,7 +98,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
-                {{ __('既にアカウントは作っていましたか？') }}
+                {{ __('既にアカウントは作っている方はこちら') }}
             </a>
 
             <x-primary-button class="ml-4">

@@ -18,7 +18,7 @@
 
                                     <div class="flex justify-between items-center mb-2">
                                         <div>
-                                            <p class="text-gray-700 font-medium" style="font-size: 14px;">{{ $prefecture_select[$tweet->user->prefecture] }}</p>
+                                            <p class="text-gray-700 font-medium" style="font-size: 14px;">{{ $tweet->user->prefecture_name() }}</p>
                                             <a href="{{ route('follow.show', $tweet->user->id) }}">
                                             <p class="text-gray-700 font-medium" style="font-size: 14px;">{{ $tweet->user->name }}</p>
                                         </div>
@@ -64,7 +64,7 @@
                                 <div class="mb-4 border-b border-gray-400 pb-4">
                                     <div class="flex justify-between items-center mb-2">
                                         <div>
-                                            <p class="text-gray-700 font-medium">{{ $prefecture_select[$commentData->user->prefecture] }}</p>
+                                            <p class="text-gray-700 font-medium">{{ $commentData->user->prefecture_name() }}</p>
                                             <a href="{{ route('follow.show', $commentData->user->id) }}">
                                             <p class="text-gray-700 font-medium">{{ $commentData->user->name }}</p>
                                         </div>

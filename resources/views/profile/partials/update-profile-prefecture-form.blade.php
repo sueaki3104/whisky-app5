@@ -24,7 +24,7 @@
         <!-- 都道府県 -->
         <div class="mt-4">
             <x-input-label for="prefecture" :value="__('あなたが登録した都道府県は')" style="font-size: 16px;" />
-            <p class="text-gray-700 font-medium">{{ $prefecture_select[ $user->prefecture ] }}です</p>
+            <p class="text-gray-700 font-medium">{{ $user->prefecture_name() }}です</p>
             <p class="text-gray-700 font-medium">変更したい場合は下記のプルダウンから選択してください</p>
 
             <select name="prefecture" id="prefecture" required="required" autofocus="autofocus">

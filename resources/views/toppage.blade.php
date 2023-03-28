@@ -34,8 +34,13 @@
                 flex-direction: column;
                 text-align: center;
                 color: white;
+                font-size: 1.2rem;
             }
 
+            /* 送信ボタンのフォントサイズを変更 */
+            button[type="submit"] {
+            font-size: 1.5rem;
+            }
         </style>
     </head>
 
@@ -45,8 +50,8 @@
     <!-- POPUPの内容 -->
         <div id="popup" class="popup">
             <h2>年齢確認</h2>
-            <p>当サイトは主にお酒に関することが書いてあります</p>
-            <p>あなたの年齢は？</p>
+            <h3>主にお酒に関することが書いてあります</h3>
+            <h3>あなたの年齢は？</h3>
             <form>
                 <input type="radio" id="age-over" name="age" value="over" required>
                 <label for="age-over">20歳以上です</label><br>
@@ -63,10 +68,10 @@
 
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" fill="red" class="bi bi-moon-stars" viewBox="0 0 16 16">
-                        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/>
-                        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/>
-                    </svg>
+            <!-- Logo -->
+                    <a href="{{ route('tweet.index') }}">
+                        <img src="{{ asset('./img/whiskylogo.png') }}" width="100px" height="100px">
+                    </a>
                 </div>
 <!-- 当サイトについて -->
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
@@ -74,7 +79,7 @@
                         <div class="p-6">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-500"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="" class="underline text-gray-900 dark:text-white">当サイトについて</a></div>
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a class="text-gray-900 dark:text-white">当サイトについて</a></div>
                             </div>
 
                             <div class="ml-12">
@@ -87,7 +92,7 @@
                         <div class="p-6 border-t border-gray-200 dark:border-gray-700 md:border-t-0 md:border-l">
                             <div class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-500"><path stroke-linecap="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" /></svg>
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="" class="underline text-gray-900 dark:text-white">所属する都道府県？</a></div>
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a class="text-gray-900 dark:text-white">所属する都道府県？</a></div>
                             </div>
 
                             <div class="ml-12">
