@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('comment');
             $table->timestamps();
             $table->tinyInteger('is_delete')->default(0);
+
         });
     }
 
