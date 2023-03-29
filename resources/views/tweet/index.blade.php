@@ -59,8 +59,9 @@
                 @if( isset($tweet->innerJoinImages[0]) )
                     <div>
                     @foreach ($tweet->innerJoinImages as $photo)
-                        <img src="{{ asset('storage/images/' . $photo->hash_name) }}" style="display:inline-block; width:150px; height:auto;">
-                        <!-- <span>{{ asset('storage/images/' . $tweet->innerJoinImages[0]->hash_name) }}</span> -->
+                        <a href="{{ asset('storage/images/' . $photo->hash_name) }}" data-lightbox="group1" data-title="{{ $tweet->tweet }}">
+                            <img src="{{ asset('storage/images/' . $photo->hash_name) }}" style="display:inline-block; width:150px; height:auto;">
+                        </a>
                     @endforeach
                     </div>
                 @endif
