@@ -9,11 +9,68 @@
     border: 1px solid black;
     color: black;
   }
+  .modal {
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  .modal img {
+      max-width: 100%;
+      max-height: 100%;
+      cursor: pointer;
+      position: relative;
+  }
+  .modal .close {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+  }
+
 </style>
 
 
 
 <x-app-layout>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function(){
+        // aタグをクリックしたら
+        $('a[data-lightbox="group1"]').click(function(event){
+            // デフォルトの処理をキャンセル
+            event.preventDefault();
+            // 大きく表示された画像のURLを取得
+            const imageUrl = $(this).attr('href');
+            // 大きく表示された画像のimg要素を生成
+            const $largeImage = $('<img>',{src: imageUrl, class: 'enlarged-image'});
+            // ×印を追加
+            const $closeButton = $('<div>',{class: 'close'}).html('×').appendTo($largeImage);
+            // モーダルダイアログを表示
+            const $dialog = $('<div>',{class: 'modal'}).append($largeImage).appendTo('body');
+            // ×印をクリックしてモーダルダイアログを閉じる
+            $closeButton.click(function(){
+                $dialog.remove();
+            });
+            // モーダルダイアログ以外をクリックしても閉じる
+            $dialog.click(function(e){
+                if (e.target === this) {
+                    $dialog.remove();
+                }
+            });
+        });
+    });
+  </script>
+
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
       {{ __('投稿一覧') }}
@@ -57,12 +114,13 @@
 
 
                 @if( isset($tweet->innerJoinImages[0]) )
-                    <div>
-                    @foreach ($tweet->innerJoinImages as $photo)
-                        <img src="{{ asset('storage/images/' . $photo->hash_name) }}" style="display:inline-block; width:150px; height:auto;">
-                        <!-- <span>{{ asset('storage/images/' . $tweet->innerJoinImages[0]->hash_name) }}</span> -->
-                    @endforeach
-                    </div>
+                  <div>
+                      @foreach ($tweet->innerJoinImages as $photo)
+                          <a href="{{ asset('storage/images/' . $photo->hash_name) }}" data-lightbox="group1" data-title="{{ $tweet->tweet }}">
+                              <img src="{{ asset('storage/images/' . $photo->hash_name) }}" style="display:inline-block; width:150px; height:auto;">
+                          </a>
+                      @endforeach
+                  </div>
                 @endif
 
                   <div class="flex">

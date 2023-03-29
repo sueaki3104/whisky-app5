@@ -33,9 +33,15 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
+            <div class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <a href="{{ route('register') }}" class="underline text-gray-900 dark:text-white">新規登録へ</a></div>
+
+
+            <div class="ml-3"></div> <!-- 余白を追加 -->
+
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('パスワードを忘れましたか？') }}
+                    {{ __('パスワードを忘れた') }}
                 </a>
             @endif
 
