@@ -88,22 +88,22 @@
                             </tr>
                         </thead>
                     <tbody>
-                    @foreach ($tweets as $tweet)
-                        <tr id="tweet{{$tweet->id}}" class="hover:bg-grey-lighter sm:table-row" \>
+                      @foreach ($tweets as $tweet)
+                            <tr id="tweet{{$tweet->id}}" class="hover:bg-grey-lighter sm:table-row" \>
                             <td class="py-4 px-6 border-b border-grey-light sm:text-sm md:text-base lg:text-lg">
-                                <div class="flex flex-col mb-4">
-                                    <div class="flex justify-between items-start mb-2">
-                                        <div>
-                                            <p class="text-left text-white-700 font-medium" style="font-size: 14px;">{{ $tweet->user->prefecture_name() }}</p>
-                                            <a href="{{ route('follow.show', $tweet->user->id) }}">
-                                            <p class="text-left text-white-700 font-medium" style="font-size: 14px;">{{ $tweet->user->name }}</p>
+                                    <div class="flex flex-col mb-4">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <div>
+                                                <p class="text-left text-white-700 font-medium" style="font-size: 14px;">{{ $tweet->user->prefecture_name() }}</p>
+                                                <a href="{{ route('follow.show', $tweet->user->id) }}">
+                                                <p class="text-left text-white-700 font-medium" style="font-size: 14px;">{{ $tweet->user->name }}</p>
+                                            </div>
+                                            <p class="text-white-500 text-sm">{{ $tweet->created_at->locale('ja')->diffForHumans(null, true) }}</p>
                                         </div>
-                                        <p class="text-white-500 text-sm">{{ $tweet->created_at->locale('ja')->diffForHumans(null, true) }}</p>
                                     </div>
-                                </div>
 
 
-                  </div>
+                    </div>
 
 
                   <!-- 本文から投稿詳細に飛ばす -->
