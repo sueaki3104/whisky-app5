@@ -45,7 +45,7 @@
                             <form class="mb-6" action="{{ route('comment.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="flex flex-col mb-4">
-                                    <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="tweet">コメントする（画像は１枚）</label>
+                                    <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="tweet">コメントする（画像は最大４枚です）</label>
                                     <textarea class="border py-2 px-3 text-grey-darkest resize-none" name="comment" id="comment" rows="4"></textarea>
                                     <input type="hidden" name="tweet_id" id="tweet_id" value="{{$tweet->id}}">
                                 </div>
