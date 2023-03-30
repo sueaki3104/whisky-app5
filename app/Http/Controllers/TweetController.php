@@ -94,18 +94,23 @@ class TweetController extends Controller
             $path = $image->store('public/images'); // アップロードされたファイルを保存
             $compressedImage = Image::make(storage_path('app/' . $path))->orientate(); // 画像を圧縮
 
-            if ($compressedImage->filesize() > 2048000) { // もし2MBを超える場合
-                $compressedImage = $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
-                    $constraint->aspectRatio(); // 縦横比はそのまま
-                })->limitColors(255)->encode(); // 255色に減色してエンコード
-            } else {
-                $compressedImage = $compressedImage->encode();
-            }
+            // 投稿された画像が２MBを超えるなら２MB以下になるようにする　２MB未満ならリサイズしない
+
             // if ($compressedImage->filesize() > 2048000) { // もし2MBを超える場合
-            //     $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
+            //     $compressedImage = $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
             //         $constraint->aspectRatio(); // 縦横比はそのまま
             //     })->limitColors(255)->encode(); // 255色に減色してエンコード
+            // } else {
+            //     $compressedImage = $compressedImage->encode();
             // }
+
+
+            // 投稿された画像が２MBを超えるならリサイズ
+            if ($compressedImage->filesize() > 2048000) { // もし2MBを超える場合
+                $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
+                    $constraint->aspectRatio(); // 縦横比はそのまま
+                })->limitColors(255)->encode(); // 255色に減色してエンコード
+            }
 
 
 
