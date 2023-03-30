@@ -64,7 +64,7 @@ class TweetController extends Controller
 
 
 
-// // 投稿する際に画像は１枚１０MBまででサーバー保存する際に自動で圧縮する（２MB）処理です
+// // 投稿する際に画像は１枚20MBまででサーバー保存する際に自動で圧縮する（２MB）処理です
 
      public function store(Request $request)
     {
@@ -72,7 +72,7 @@ class TweetController extends Controller
         $validator = Validator::make($request->all(), [
             'tweet' => 'required | max:191',
             'images' => 'array|max:4',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000', // 10MB以下に変更
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:20000', // 20MB以下に変更
         ]);
         // バリデーション:エラー
         if ($validator->fails()) {
@@ -120,55 +120,6 @@ class TweetController extends Controller
         // tweet.index にリクエスト送信（一覧ページに移動）
         return redirect()->route('tweet.index');
     }
-
-
-// これもうまくいかない
-
-// public function store(Request $request)
-// {
-//     // バリデーション
-//     $validator = Validator::make($request->all(), [
-//         'tweet' => 'required|max:191',
-//         'images' => 'array|max:4',
-//         'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000',
-//     ]);
-
-//     // バリデーション:エラー
-//     if ($validator->fails()) {
-//         return redirect()
-//             ->route('tweet.create')
-//             ->withInput()
-//             ->withErrors($validator);
-//     }
-
-//     // 🔽 編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
-//     $data = $request->merge([
-//         'user_id' => Auth::user()->id,
-//         'prefecture' => Auth::user()->prefecture,
-//     ])->all();
-
-//     $result = Tweet::create($data);
-
-//     $imageList = $this->images($request);
-
-//     foreach($imageList as $image){
-//         $path = $image->store('public/images'); // アップロードされたファイルを保存
-//         $compressedImage = Image::make(storage_path('app/' . $path))->encode(null, 60)->orientate(); // 画像を圧縮し、向きを調整
-//         Storage::put($path, $compressedImage); // 圧縮した画像を保存
-
-//         $imageModel = new TweetImage();
-//         $imageModel->tweet_id = $result->id;
-//         $imageModel->hash_name = $image->hashName();
-//         $imageModel->save();// DBに保存
-//     }
-
-//     // tweet.index にリクエスト送信（一覧ページに移動）
-//     return redirect()->route('tweet.index');
-// }
-
-
-
-
 
 
 
