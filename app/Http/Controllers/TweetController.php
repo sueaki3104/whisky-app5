@@ -64,7 +64,7 @@ class TweetController extends Controller
 
 
 
-// // 投稿する際に画像は１枚20MBまででサーバー保存する際に自動で圧縮する（２MB）処理です
+// // 投稿する際に画像は１枚10MBまででサーバー保存する際に自動で圧縮する（２MB）処理です
 
      public function store(Request $request)
     {
@@ -72,7 +72,7 @@ class TweetController extends Controller
         $validator = Validator::make($request->all(), [
             'tweet' => 'required | max:191',
             'images' => 'array|max:4',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:20000', // 20MB以下に変更
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000', // 10MB以下に変更
         ]);
         // バリデーション:エラー
         if ($validator->fails()) {
@@ -95,26 +95,31 @@ class TweetController extends Controller
             $compressedImage = Image::make(storage_path('app/' . $path))->orientate(); // 画像を圧縮
 
             // 投稿された画像が２MBを超えるなら２MB以下になるようにする　２MB未満ならリサイズしない
-
-            // if ($compressedImage->filesize() > 2048000) { // もし2MBを超える場合
-            //     $compressedImage = $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
-            //         $constraint->aspectRatio(); // 縦横比はそのまま
-            //     })->limitColors(255)->encode(); // 255色に減色してエンコード
-            // } else {
-            //     $compressedImage = $compressedImage->encode();
-            // }
-
-
-            // 投稿された画像が２MBを超えるならリサイズ
             if ($compressedImage->filesize() > 2048000) { // もし2MBを超える場合
-                $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
+                $compressedImage = $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
                     $constraint->aspectRatio(); // 縦横比はそのまま
                 })->limitColors(255)->encode(); // 255色に減色してエンコード
+            } else {
+                $compressedImage = $compressedImage->encode();
             }
 
 
+            // 投稿された画像が２MBを超えるならリサイズ
+            // if ($compressedImage->filesize() > 2048000) { // もし2MBを超える場合
+            //     $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
+            //         $constraint->aspectRatio(); // 縦横比はそのまま
+            //     })->limitColors(255)->encode(); // 255色に減色してエンコード
+            // }
 
-            Storage::put($path, $compressedImage); // 圧縮した画像を保存
+
+
+                // 画像を保存する前にファイルのサイズを確認する
+                if ($compressedImage->filesize() > 0) {
+                    Storage::put($path, $compressedImage); // 圧縮した画像を保存
+                } else {
+                    // エラー処理
+                }
+
 
             $imageModel = new TweetImage();
             $imageModel->tweet_id = $result->id;
