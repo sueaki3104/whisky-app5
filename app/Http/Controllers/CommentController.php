@@ -12,6 +12,7 @@ use App\Models\Comments;
 use App\Models\CommentImage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class CommentController extends Controller
 {
@@ -34,10 +35,8 @@ class CommentController extends Controller
         // バリデーション
         $validator = Validator::make($request->all(), [
             'comment' => 'required | max:191',
-            // 'description' => 'required',
             'images' => 'array|max:4',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000'
-
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000'// 10MB以下に変更
         ]);
         // バリデーション:エラー
         if ($validator->fails()) {
@@ -56,7 +55,29 @@ class CommentController extends Controller
 
         $imageList = $this->images($request);
         foreach($imageList as $image){
-            Storage::putFile('public/images', $image);// アップロードされたファイルを保存
+
+            $path = $image->store('public/images'); // アップロードされたファイルを保存
+            $compressedImage = Image::make(storage_path('app/' . $path))->orientate(); // 画像を圧縮
+
+            if ($compressedImage->filesize() > 2048000) { // もし2MBを超える場合
+                $compressedImage = $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
+                    $constraint->aspectRatio(); // 縦横比はそのまま
+                })->limitColors(255)->encode(); // 255色に減色してエンコード
+            } else {
+                $compressedImage = $compressedImage->encode();
+            }
+
+
+            // if ($compressedImage->filesize() > 2048000) { // もし2MBを超える場合
+            //     $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
+            //         $constraint->aspectRatio(); // 縦横比はそのまま
+            //     })->limitColors(255)->encode(); // 255色に減色してエンコード
+            // }
+
+
+            Storage::put($path, $compressedImage); // 圧縮した画像を保存
+
+            // Storage::putFile('public/images', $image);// アップロードされたファイルを保存
             $imageModel = new CommentImage();
             $imageModel->comment_id = $result->id;
             $imageModel->hash_name = $image->hashName();

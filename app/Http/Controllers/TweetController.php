@@ -11,7 +11,6 @@ use App\Models\TweetImage;
 use App\Models\Comments;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-
 use Intervention\Image\Facades\Image;
 
 
@@ -65,51 +64,62 @@ class TweetController extends Controller
 
 
 
-// // 投稿する際に画像を自動で圧縮する処理を検討したが、データ容量がそもそも多いものは
+// // 投稿する際に画像は１枚１０MBまででサーバー保存する際に自動で圧縮する（２MB）処理です
 
-//      public function store(Request $request)
-//     {
-//         // バリデーション
-//         $validator = Validator::make($request->all(), [
-//             'tweet' => 'required | max:191',
-//             'images' => 'array|max:4',
-//             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000', // 2MB以下に変更
-//         ]);
-//         // バリデーション:エラー
-//         if ($validator->fails()) {
-//             return redirect()
-//                 ->route('tweet.create')
-//                 ->withInput()
-//                 ->withErrors($validator);
-//         }
+     public function store(Request $request)
+    {
+        // バリデーション
+        $validator = Validator::make($request->all(), [
+            'tweet' => 'required | max:191',
+            'images' => 'array|max:4',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000', // 10MB以下に変更
+        ]);
+        // バリデーション:エラー
+        if ($validator->fails()) {
+            return redirect()
+                ->route('tweet.create')
+                ->withInput()
+                ->withErrors($validator);
+        }
 
-//         // 🔽 編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
-//         $data = $request->merge([
-//             'user_id' => Auth::user()->id,
-//             'prefecture' => Auth::user()->prefecture,
-//         ])->all();
-//         $result = Tweet::create($data);
+        // 🔽 編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
+        $data = $request->merge([
+            'user_id' => Auth::user()->id,
+            'prefecture' => Auth::user()->prefecture,
+        ])->all();
+        $result = Tweet::create($data);
 
-//         $imageList = $this->images($request);
-//         foreach ($imageList as $image) {
-//             $path = $image->store('public/images'); // アップロードされたファイルを保存
-//             $compressedImage = Image::make(storage_path('app/' . $path)); // 画像を圧縮
-//             if ($compressedImage->filesize() > 2048000) { // もし2MBを超える場合
-//                 $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
-//                     $constraint->aspectRatio(); // 縦横比はそのまま
-//                 })->limitColors(255)->encode(); // 255色に減色してエンコード
-//             }
-//             Storage::put($path, $compressedImage); // 圧縮した画像を保存
+        $imageList = $this->images($request);
+        foreach ($imageList as $image) {
+            $path = $image->store('public/images'); // アップロードされたファイルを保存
+            $compressedImage = Image::make(storage_path('app/' . $path))->orientate(); // 画像を圧縮
 
-//             $imageModel = new TweetImage();
-//             $imageModel->tweet_id = $result->id;
-//             $imageModel->hash_name = $image->hashName();
-//             $imageModel->save();// DBに保存
-//         }
+            if ($compressedImage->filesize() > 2048000) { // もし2MBを超える場合
+                $compressedImage = $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
+                    $constraint->aspectRatio(); // 縦横比はそのまま
+                })->limitColors(255)->encode(); // 255色に減色してエンコード
+            } else {
+                $compressedImage = $compressedImage->encode();
+            }
+            // if ($compressedImage->filesize() > 2048000) { // もし2MBを超える場合
+            //     $compressedImage->resize(1920, null, function ($constraint) { // 幅を1920pxに縮小する
+            //         $constraint->aspectRatio(); // 縦横比はそのまま
+            //     })->limitColors(255)->encode(); // 255色に減色してエンコード
+            // }
 
-//         // tweet.index にリクエスト送信（一覧ページに移動）
-//         return redirect()->route('tweet.index');
-//     }
+
+
+            Storage::put($path, $compressedImage); // 圧縮した画像を保存
+
+            $imageModel = new TweetImage();
+            $imageModel->tweet_id = $result->id;
+            $imageModel->hash_name = $image->hashName();
+            $imageModel->save();// DBに保存
+        }
+
+        // tweet.index にリクエスト送信（一覧ページに移動）
+        return redirect()->route('tweet.index');
+    }
 
 
 // これもうまくいかない
@@ -164,49 +174,49 @@ class TweetController extends Controller
 
 // 最悪これを使う
 
-     public function store(Request $request)
-    {
-        // バリデーション
-        $validator = Validator::make($request->all(), [
-            'tweet' => 'required | max:191',
-            // 'description' => 'required',
-            'images' => 'array|max:4',
-            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000'
+    //  public function store(Request $request)
+    // {
+    //     // バリデーション
+    //     $validator = Validator::make($request->all(), [
+    //         'tweet' => 'required | max:191',
+    //         // 'description' => 'required',
+    //         'images' => 'array|max:4',
+    //         'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000'
 
-        ]);
-        // バリデーション:エラー
-        if ($validator->fails()) {
-            return redirect()
-                ->route('tweet.create')
-                ->withInput()
-                ->withErrors($validator);
-        }
+    //     ]);
+    //     // バリデーション:エラー
+    //     if ($validator->fails()) {
+    //         return redirect()
+    //             ->route('tweet.create')
+    //             ->withInput()
+    //             ->withErrors($validator);
+    //     }
 
-        // 🔽 編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
-        $data = $request->merge([
-            'user_id' => Auth::user()->id,
-            'prefecture' => Auth::user()->prefecture,
-            ])->all();
-        $result = Tweet::create($data);
+    //     // 🔽 編集 フォームから送信されてきたデータとユーザIDをマージし，DBにinsertする
+    //     $data = $request->merge([
+    //         'user_id' => Auth::user()->id,
+    //         'prefecture' => Auth::user()->prefecture,
+    //         ])->all();
+    //     $result = Tweet::create($data);
 
-        $imageList = $this->images($request);
-        foreach($imageList as $image){
-            Storage::putFile('public/images', $image);// アップロードされたファイルを保存
-            $path = $image->store('public/images'); // アップロードされたファイルを保存
-            // $compressedImage = Image::make(storage_path('app/' . $path))->fit(800)->encode(); // 画像を圧縮
-            // Storage::put($path, $compressedImage); // 圧縮した画像を保存
+    //     $imageList = $this->images($request);
+    //     foreach($imageList as $image){
+    //         Storage::putFile('public/images', $image);// アップロードされたファイルを保存
+    //         $path = $image->store('public/images'); // アップロードされたファイルを保存
+    //         // $compressedImage = Image::make(storage_path('app/' . $path))->fit(800)->encode(); // 画像を圧縮
+    //         // Storage::put($path, $compressedImage); // 圧縮した画像を保存
 
 
 
-            $imageModel = new TweetImage();
-            $imageModel->tweet_id = $result->id;
-            $imageModel->hash_name = $image->hashName();
-            $imageModel->save();// DBに保存
-        }
+    //         $imageModel = new TweetImage();
+    //         $imageModel->tweet_id = $result->id;
+    //         $imageModel->hash_name = $image->hashName();
+    //         $imageModel->save();// DBに保存
+    //     }
 
-        // tweet.index にリクエスト送信（一覧ページに移動）
-        return redirect()->route('tweet.index');
-    }
+    //     // tweet.index にリクエスト送信（一覧ページに移動）
+    //     return redirect()->route('tweet.index');
+    // }
 
 
 
