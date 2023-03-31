@@ -84,7 +84,7 @@
                                         </div>
                                         <p class="text-gray-500 text-sm">{{ $tweet->created_at->locale('ja')->diffForHumans(null, true) }}</p>
                                     </div>
-                            <p class="py-4 px-6 border-b border-grey-light" style="overflow-wrap: break-word: font-size: 14px;" id="tweet">{{  $tweet->tweet  }}</p>
+                            <p class="py-4 px-6 border-grey-light" style="overflow-wrap: break-word: font-size: 14px;" id="tweet">{{  $tweet->tweet  }}</p>
                         </div>
 
                         @if( isset($tweet->innerJoinImages[0]) )
