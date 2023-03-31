@@ -17,6 +17,7 @@ use Intervention\Image\Facades\Image;
 class CommentController extends Controller
 {
 
+
     public function images(Request $request): array
     {
         return $request->file('images', []);
