@@ -70,14 +70,14 @@
     ul.shelves-list li img{
         display: block;
         margin: 0 auto;
-        padding: 12px 0;
+        padding: 5px 0;
         width: auto;
-        height: 60px;
-        max-height: 60px;
+        height: 90px;
+        max-height: 90px;
     }
     ul.shelves-list li a{
         display: block;
-        padding: 25px 0 2px;
+        padding: 10px 0 2px;
         width: 100%;
         height: 100%;
         font-size: 85.0%;
@@ -125,7 +125,7 @@
                                                 <span>{{ \Carbon\Carbon::parse($val->buy_date)->format('Y/m/d') }}</span><br>
                                             </div>
                                         @endif
-                                        <span>記録を見る1</span>
+                                        <span>詳細を見る</span>
                                     </a>
                                 </li>
                             @endforeach
