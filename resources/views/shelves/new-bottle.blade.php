@@ -45,7 +45,7 @@
 
                     <!-- 購入数量 -->
                     <div class="mt-4">
-                        <x-input-label for="num" :value="__('購入数量')" />
+                        <x-input-label for="num" :value="__('購入数量(半角数字のみ)')" />
                         <x-text-input id="num" class="block mt-1 w-full" type="number" name="num" :value="old('num')" required />
                         <x-input-error :messages="$errors->get('num')" class="mt-2" />
                     </div>

@@ -17,30 +17,30 @@
                 <div class="p-6 bg-white border-b border-gray-200">
 
 
-                    <img src="{{ asset('storage/images/' . $whisky->innerJoinImages[0]->hash_name) }}" width="80%" height="auto">
+                    <img src="{{ asset('storage/images/' . $whisky->innerJoinImages[0]->hash_name) }}" style="display: block; margin: 0 auto;" width="80%" height="auto">
 
                     <div class="mt-4">
-                        <span>{{ __("品名") }}</span>
+                        <span>{{ __("ウィスキー名:") }}</span>
                         <span>{{ $whisky->name }}</span>
                     </div>
                     <div class="mt-4">
-                        <span>{{ __("購入日") }}</span>
+                        <span>{{ __("購 入 日:") }}</span>
                         <span>{{ \Carbon\Carbon::parse($whisky->buy_date)->format('Y/m/d') }}</span>
                     </div>
                     <div class="mt-4">
-                        <span>{{ __("購入場所") }}</span>
+                        <span>{{ __("購入場所:") }}</span>
                         <span>{{ $whisky->buy_address }}</span>
                     </div>
                     <div class="mt-4">
-                        <span>{{ __("価格(税込)") }}</span>
+                        <span>{{ __("価格(税込):") }}</span>
                         <span>{{ $whisky->price }}</span>
                     </div>
                     <div class="mt-4">
-                        <span>{{ __("購入数量") }}</span>
+                        <span>{{ __("購入数量:") }}</span>
                         <span>{{ $whisky->num }}</span>
                     </div>
                     <div class="mt-4">
-                        <span>{{ __("思い出") }}</span>
+                        <span>{{ __("想 い 出:") }}</span>
                         <span>{{ $whisky->memory }}</span>
                     </div>
 
