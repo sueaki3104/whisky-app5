@@ -42,7 +42,9 @@ class SearchController extends Controller
     public function searchPrefecture(Request $request)
     {
         $tweets = Tweet::query()
-            ->where('prefecture', $request->prefecture)
+            ->whereHas("User", function($query) use($request){
+                $query->where('prefecture', "=", $request->prefecture);
+            })
             ->orderBy('created_at','desc')
             ->take(self::TAKE_NUMBER)
             ->get();
@@ -50,7 +52,16 @@ class SearchController extends Controller
         return view('tweet.index', compact('tweets'));
     }
 
+    public function searchPrefecture3(Request $request)
+    {
+        $tweets = Tweet::query()
+            ->where('prefecture', $request->prefecture)
+            ->orderBy('created_at','desc')
+            ->take(self::TAKE_NUMBER)
+            ->get();
 
+        return view('tweet.index', compact('tweets'));
+    }
 
     /**
      * Show the form for creating a new resource.

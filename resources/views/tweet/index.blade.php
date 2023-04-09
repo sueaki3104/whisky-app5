@@ -1,45 +1,66 @@
 <!-- resources/views/tweet/index.blade.php -->
-
 <style>
-  table {
+  .card {
     border: 1px solid black;
     border-radius: 10px;
-  }
-  th, td {
-    border: 1px solid black;
-    color: black;
-  }
-  .modal {
-      position: fixed;
-      z-index: 999;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
-  .modal img {
-      max-width: 100%;
-      max-height: 100%;
-      cursor: pointer;
-      position: relative;
-  }
-  .modal .close {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
-      cursor: pointer;
+    padding: 10px;
+    margin-bottom: 10px;
   }
 
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .card-header > div {
+    display: flex;
+    align-items: center;
+  }
+
+  .card-header img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .card-header h4 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .card-header p {
+    font-size: 12px;
+    margin: 0;
+  }
+
+  .card-body {
+    margin-bottom: 10px;
+  }
+
+  .card-body img {
+    max-width: 100%;
+    max-height: 300px;
+    margin-bottom: 10px;
+  }
+
+  .card-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .card-footer form {
+    margin: 0;
+  }
+
+  .card-footer button {
+    margin-left: 10px;
+  }
 </style>
-
-
 
 <x-app-layout>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -71,6 +92,7 @@
     });
   </script>
 
+
   <x-slot name="header">
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
       {{ __('投稿一覧') }}
@@ -99,6 +121,7 @@
                                                 <p class="text-left text-white-700 font-medium" style="font-size: 14px;">{{ $tweet->user->name }}</p>
                                             </div>
                                             <p class="text-white-500 text-sm">{{ $tweet->created_at->locale('ja')->diffForHumans(null, true) }}</p>
+                                            <p class="text-white-500 text-sm">{{ $tweet->prefecture_name() }}</p>
                                         </div>
                                     </div>
 

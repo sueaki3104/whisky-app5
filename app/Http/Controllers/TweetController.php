@@ -64,7 +64,7 @@ class TweetController extends Controller
 
 
 
-// // 投稿する際に画像は１枚10MBまででサーバー保存する際に自動で圧縮する（２MB）処理です
+    // // 投稿する際に画像は１枚10MBまででサーバー保存する際に自動で圧縮する（２MB）処理です
 
      public function store(Request $request)
     {

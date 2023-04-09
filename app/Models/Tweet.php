@@ -50,4 +50,11 @@ class Tweet extends Model
         return $this->hasMany(TweetImage::class, "tweet_id");
     }
 
+    public function prefecture_name()
+    {
+        $prefecture_select = user::getPrefecture();
+        return $prefecture_select[$this->prefecture];
+    }
+
+
 }
