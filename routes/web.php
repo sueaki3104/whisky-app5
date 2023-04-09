@@ -7,6 +7,7 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ShelvesController;
 
 
 /*
@@ -23,8 +24,16 @@ use App\Http\Controllers\CommentController;
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/tweet', [TweetController::class, 'index'])->name('tweet.index');
     Route::get('/tweet/search/input', [SearchController::class, 'create'])->name('search.input');
+
+    Route::get('/shelves/index', [ShelvesController::class, 'index'])->name('shelves.index');
+    Route::get('/shelves/show/{id}', [ShelvesController::class, 'show'])->name('shelves.show');
+    Route::get('/shelves/register', [ShelvesController::class, 'register'])->name('shelves.register');
+    Route::post('/shelves/store', [ShelvesController::class, 'store'])->name('shelves.store');
+    Route::get('/shelves/delete/{id}', [ShelvesController::class, 'delete'])->name('shelves.delete');
+
     Route::get('/tweet/search/result', [SearchController::class, 'index'])->name('search.result');
     Route::get('/tweet/search/result2', [SearchController::class, 'searchPrefecture'])->name('search.prefecture');
+    Route::get('/tweet/search/result3', [SearchController::class, 'searchPrefecture3'])->name('search.prefecture3');
     Route::get('/tweet/timeline', [TweetController::class, 'timeline'])->name('tweet.timeline');
     Route::get('user/{user}', [FollowController::class, 'show'])->name('follow.show');
     Route::post('user/{user}/follow', [FollowController::class, 'store'])->name('follow');

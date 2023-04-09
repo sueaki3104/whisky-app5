@@ -47,6 +47,12 @@
           </x-nav-link>
         </div>
 
+        <!-- 🔽 棚へのリンクを追加 -->
+        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+          <x-nav-link :href="route('shelves.index')" :active="request()->routeIs('shelves.index')">
+            {{ __('棚へ') }}
+          </x-nav-link>
+        </div>
       </div>
 
       <!-- Settings Dropdown -->

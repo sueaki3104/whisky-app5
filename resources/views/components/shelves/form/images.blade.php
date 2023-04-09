@@ -1,4 +1,5 @@
 <div x-data="inputFormHandler()" class="my-2">
+
     <template x-for="(field, i) in fields" :key="i">
         <div class="w-full flex my-2">
             <label :for="field.id" class="border border-gray-300 rounded-md p-2 w-full bg-white cursor-pointer">
@@ -13,14 +14,7 @@
         </div>
     </template>
 
-    <!-- <template x-if="fields.length < 4"> -->
-        <!-- <button type="button" @click="addField()" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-            </svg>
-            <span>画像を追加</span>
-        </button> -->
-    <!-- </template> -->
+
 </div>
 
 <script>
@@ -29,7 +23,7 @@ function inputFormHandler() {
     // fields: [],
     fields: [
         {file:'', id:'input-image-0'},
-        {file:'', id:'input-image-1'},
+        // {file:'', id:'input-image-1'},
         // {file:'', id:'input-image-2'},
         // {file:'', id:'input-image-3'}
     ],
