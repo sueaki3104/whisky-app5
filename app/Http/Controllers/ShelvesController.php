@@ -43,7 +43,7 @@ class ShelvesController extends Controller
             ])->get()->first();
 
         // 自身のウイスキーの合計金額
-        $whiskyPriceTotal = Shelves::select(DB::raw("sum(price) as total_price"))->where([
+        $whiskyPriceTotal = Shelves::select(DB::raw("sum(price*num) as total_price"))->where([
                 ["user_id", "=", Auth::user()->id],
                 ["is_delete", "=", 0],
             ])->get()->first();
