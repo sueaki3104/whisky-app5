@@ -159,10 +159,14 @@
 
 
                   <!-- 本文から投稿詳細に飛ばす -->
-
-                  <a href="{{ route('tweet.show',$tweet->id) }}">
-                    <h3 class="text-left font-bold text-lg text-grey-dark" style="overflow-wrap: break-word; font-size: 14px;">{{$tweet->tweet}}</h3>
+                <?php
+                    $urlRegex = '/https?:\/\/[^\s]+/';
+                    $linkedText = preg_replace($urlRegex, '<a href="$0" target="_blank" rel="noopener noreferrer">$0</a>', $tweet->tweet);
+                ?>
+                    <a href="{{ route('tweet.show',$tweet->id) }}">
+                    <h3 class="text-left font-bold text-lg text-grey-dark" style="overflow-wrap: break-word; font-size: 14px;">{!!  $linkedText  !!}</h3>
                   </a>
+
 
 
                 @if( isset($tweet->innerJoinImages[0]) )
