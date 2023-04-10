@@ -56,5 +56,11 @@ class Tweet extends Model
         return $prefecture_select[$this->prefecture];
     }
 
+    public function linked_tweet(){
+        $urlRegex = '/https?:\/\/[^\s]+/';
+        $linkedText = preg_replace($urlRegex, '<a href="$0" target="_blank" rel="noopener noreferrer">$0</a>', $this->tweet);
+        return $linkedText;
+    }
+
 
 }

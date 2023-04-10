@@ -43,6 +43,11 @@ class Comments extends Model
         return $this->hasMany(CommentImage::class, "comment_id");
     }
 
+    public function linked_comment(){
+        $urlRegex = '/https?:\/\/[^\s]+/';
+        $linkedText = preg_replace($urlRegex, '<a href="$0" target="_blank" rel="noopener noreferrer">$0</a>', $this->comment);
+        return $linkedText;
+    }
 
 
 
