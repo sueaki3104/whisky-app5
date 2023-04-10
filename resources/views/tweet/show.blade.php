@@ -59,6 +59,10 @@
         });
     </script>
 
+    <?php
+        $urlRegex = '/https?:\/\/[^\s]+/';
+        $linkedText = preg_replace($urlRegex, '<a href="$0" target="_blank" rel="noopener noreferrer">$0</a>', $tweet->tweet);
+    ?>
 
 
     <x-slot name="header">
@@ -84,7 +88,7 @@
                                         </div>
                                         <p class="text-gray-500 text-sm">{{ $tweet->created_at->locale('ja')->diffForHumans(null, true) }}</p>
                                     </div>
-                            <p class="py-4 px-6 border-grey-light" style="overflow-wrap: break-word: font-size: 14px;" id="tweet">{{  $tweet->tweet  }}</p>
+                            <p class="py-4 px-6 border-grey-light" style="overflow-wrap: break-word: font-size: 14px;" id="tweet">{!!  $linkedText  !!}</p>
                         </div>
 
                         @if( isset($tweet->innerJoinImages[0]) )
