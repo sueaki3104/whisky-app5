@@ -97,7 +97,8 @@
                 <div class="p-6 bg-white border-b border-gray-200">
 
                     <div class="shelves-header">
-                        <div class="_name">あなたの<br>ウィスキー棚</div>
+                        <div class="_name">{{  Auth::user()->name  }}<br>ウィスキー棚</div>
+
                         <div class="_register"><a href="{{ route('shelves.register') }}">ウィスキー<br>新規登録</a></div>
                     </div>
 
@@ -119,12 +120,12 @@
                                         @else
                                             <img src="{{ asset('./img/whiskylogo.png') }}" width="35px" height="35px">
                                         @endif
-                                        @if( env('APP_DEBUG', false) )
-                                            <div>
-                                                <span>{{ $val->name }}</span><br>
-                                                <span>{{ \Carbon\Carbon::parse($val->buy_date)->format('Y/m/d') }}</span><br>
-                                            </div>
-                                        @endif
+
+                                        <div>
+                                            <span>{{ $val->name }}</span><br>
+                                            <span>{{ \Carbon\Carbon::parse($val->buy_date)->format('Y/m/d') }}</span><br>
+                                        </div>
+
                                         <span>詳細を見る</span>
                                     </a>
                                 </li>

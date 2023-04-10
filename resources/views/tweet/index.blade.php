@@ -60,6 +60,35 @@
   .card-footer button {
     margin-left: 10px;
   }
+
+
+    .modal {
+        position: fixed;
+        z-index: 999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal img {
+      max-width: 100%;
+      max-height: 100%;
+      cursor: pointer;
+      position: relative;
+    }
+    .modal .close {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 </style>
 
 <x-app-layout>
