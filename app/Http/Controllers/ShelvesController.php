@@ -77,7 +77,7 @@ class ShelvesController extends Controller
         // バリデーション:エラー
         if ($validator->fails()) {
             return redirect()
-                ->route('shelves.shelves')
+                ->route('shelves.register')
                 ->withInput()
                 ->withErrors($validator);
         }
