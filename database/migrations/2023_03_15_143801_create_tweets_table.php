@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->integer('prefecture');
-            $table->string('tweet');
+            $table->text('tweet');
             $table->text('description')->nullable();
             $table->timestamps();
             $table->tinyInteger('is_delete')->default(0);

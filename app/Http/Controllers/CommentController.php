@@ -35,7 +35,7 @@ class CommentController extends Controller
     {
         // バリデーション
         $validator = Validator::make($request->all(), [
-            'comment' => 'required | max:191',
+            'comment' => 'required | max:1024',
             'images' => 'array|max:4',
             'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:10000'// 10MB以下に変更
         ]);
