@@ -87,21 +87,28 @@
         background-color: #d2b48c;
     }
 
+    /* body {
+            background-color: black !important;
+    } */
 </style>
 
 
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ Auth::user()->name.__('のウィスキー棚') }}
+        </h2>
+    </x-slot>
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:w-8/12 md:w-1/2 lg:w-5/12">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
                     <div class="shelves-header">
-                        <div class="_name">{{  Auth::user()->name  }}<br>ウィスキー棚</div>
-
+                        <!-- <div class="_name">{{  Auth::user()->name  }}<br>ウィスキー棚</div> -->
                         <div class="_register"><a href="{{ route('shelves.register') }}">ウィスキー<br>新規登録</a></div>
                     </div>
-
 
                     <div class="shelves-status">
                         <div>棚には<br><span class="fontBold">{{ number_format($whiskyNum->total_num) }}本</span>あります</div>
@@ -111,7 +118,6 @@
 
                     <div>
                         <ul class="shelves-list">
-
                             @foreach($shelvesData as $key=>$val)
                                 <li>
                                     <a href="{{ route('shelves.show', $val->id) }}">
@@ -130,20 +136,8 @@
                                     </a>
                                 </li>
                             @endforeach
-
-
-
                         </ul>
                     </div>
-
-
-
-
-
-
-
-
-
                 </div>
             </div>
         </div>
