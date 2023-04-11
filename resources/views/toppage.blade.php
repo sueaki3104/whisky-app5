@@ -36,32 +36,29 @@
                 color: white;
                 font-size: 1.2rem;
             }
-
-            /* 送信ボタンのフォントサイズを変更 */
-            button[type="submit"] {
-            font-size: 1.5rem;
+            .age-btn {
+                font-size: 1.2rem;
+                height: 60px;
+                width: 200px;
             }
         </style>
     </head>
 
 
+
+
     <body class="antialiased">
 
     <!-- POPUPの内容 -->
-        <div id="popup" class="popup">
-            <h2>年齢確認</h2>
-            <h3>主にお酒に関することが書いてあります</h3>
-            <h3>あなたの年齢は？</h3>
-            <form>
-                <input type="radio" id="age-over" name="age" value="over" required>
-                <label for="age-over">20歳以上です</label><br>
-                <input type="radio" id="age-under" name="age" value="under" required>
-                <label for="age-under">20歳未満です</label><br>
-                <button type="submit">送信</button>
-            </form>
+    <div id="popup" class="popup">
+        <h2>年齢確認</h2>
+        <h3>主にお酒に関することが書いてあります</h3>
+        <h3>あなたの年齢は？</h3>
+        <div>
+            <button id="over" class="age-btn">20歳以上です</button>
+            <button id="under" class="age-btn">20歳未満です</button>
         </div>
-
-
+    </div>
 
 
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
@@ -138,28 +135,27 @@
             </div>
         </div>
 
-<!-- POPUPのSCRIPT -->
-<script>
-    window.addEventListener('load', function() {
-        const popup = document.querySelector('#popup');
-        popup.style.display = 'flex';
-    });
 
-    const form = document.querySelector('form');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const age = document.querySelector('input[name="age"]:checked').value;
-        if (age === 'over') {
-            // 20歳以上の場合は何もしない
-            popup.style.display = 'none';
-        } else {
-            // 20歳未満の場合はエラーメッセージを表示
-            alert('当サイトは20歳以上の方のみ利用可能です。');
-        }
-    });
-</script>
+    <!-- POPUPのSCRIPT -->
+    <script>
+        window.addEventListener('load', function() {
+            const popup = document.querySelector('#popup');
+            popup.style.display = 'flex';
 
+            const overBtn = document.querySelector('#over');
+            const underBtn = document.querySelector('#under');
 
+            overBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                popup.style.display = 'none';
+            });
+
+            underBtn.addEventListener('click', function(event) {
+                event.preventDefault();
+                alert('当サイトは20歳以上の方のみ利用可能です。');
+            });
+        });
+    </script>
 
 
     </body>
