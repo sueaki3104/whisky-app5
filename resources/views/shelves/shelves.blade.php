@@ -96,7 +96,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ Auth::user()->name.__('のウィスキー棚') }}
+            {{ Auth::user()->name.__('  ウィスキー棚') }}
         </h2>
     </x-slot>
 
